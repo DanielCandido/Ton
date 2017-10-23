@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pt=" http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+
+</h:head> 
+<body> 
+	<div>
+		<div style="border-color: black; width: 100px; height:100px;">
+			<h:graphicImage value="/Views/Images/ton.jpg" style="heigth:50px; width:150px;"/>		
+		</div>
+		<div style="text-align: right">
+		<a class="entrar-perfil" href="login-usuario.xhtml">
+			<i class="fa fa-user-circle-o" aria-hidden="true" ></i>&npbs; Entrar</a>
+		</div>
+		<br/>
+		<h:form>
+		<p:messages id="messages" showDetail="false" autoUpdate="true"
+			closable="true" />
+	</h:form>
+		<div>
+		<h:form>
+			<br/>
+			<div style="text-align: center">
+			<h:outputLabel value="Cadastre-se"/>
+			</div>
+			<p:outputLabel value="Nome" style="margin-left:50px;"/><br/>
+			<p:inputText id="nomePessoa" value="#{userBean.user.firstNameUser}" style="margin-left:50px;" /><br/><br/>
+			<p:outputLabel value="Sobrenome" style="margin-left:50px;" /><br/>
+			<p:inputText id="sobrenomePessoa" value="#{userBean.user.lastNameUser}" style="margin-left:50px;" /><br/><br/>
+			<p:outputLabel value="Email" style="margin-left:50px;"/><br/>
+			<p:inputText id="emailPessoa" value="#{userBean.user.emailUser}" style="margin-left:50px;"/><br/><br/>
+			<p:outputLabel value="RG" style="margin-left:50px;"/><br/>
+			<p:inputText id="rgPessoa" value="#{userBean.user.rgUser}" style="margin-left:50px;"/><br/><br/>
+			<p:outputLabel value="CPF" style="margin-left:50px;"/><br/>
+			<p:inputMask mask="999.999.999-99" id="cpfPessoa" value="#{userBean.user.cpfUser}" style="margin-left:50px;"/><br/><br/>
+			<p:outputLabel value="Telefone" style="margin-left:50px;"/><br/>
+			<p:inputMask mask="(99) 9999-9999" id="telefonePessoa" value="#{userBean.user.phoneUser}" style="margin-left:50px;"/><br/><br/>
+			<p:outputLabel value="Celular" style="margin-left:50px;"/><br/>
+			<p:inputMask mask="(99) 9999-9999" id="celularPessoa" value="#{userBean.user.cellPhoneUser}" style="margin-left:50px;"/><br/><br/>-
+			<p:outputLabel value="Endereco" style="margin-left:50px;"/><br/>
+			<p:inputText id="enderecoPessoa" value="#{userBean.user.adressUser}" style="margin-left:50px;"/><br/><br/>
+			<p:outputLabel value="CEP" style="margin-left:50px;"/><br/>
+			<p:inputText id="cepPessoa" value="#{userBean.user.cepUser}" style="margin-left:50px;"/><br/><br/>
+			<p:outputLabel value="Senha" style="margin-left:50px;"/><br/>
+			<p:password id="passwordPessoa" value="#{userBean.user.passwordUser}" style="margin-left:50px;"/><br/><br/>
+			
+			<p:commandButton id="cadastrar" value="Casdastrar" action="#{userBean.registerUser()}"/>
+			
+			</h:form>
+		</div>
+	</div>	
+	
+</body> 
+</html>
