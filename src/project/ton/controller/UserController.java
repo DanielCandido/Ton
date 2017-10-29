@@ -56,8 +56,7 @@ public class UserController {
 	        if (tUser != null)
 	            return new UserDTO(false, "ja existe usuario cadastrado com esse email");
 
-	        tUser.setIdUser(i++);
-	        tUser.setRegisterDate(new Date());
+	        /*tUser.setRegisterDate(new Date());*/
 	        // Inserindo o User
 	        tUser = tDaoUser.createUser(pUser);
 

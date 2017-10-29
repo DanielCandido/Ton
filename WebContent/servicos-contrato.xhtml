@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui"> 
+
+<h:head>
+		<link rel="stylesheet" href="css/font-awesome.min.css" />
+</h:head> 
+<body> 
+<div>
+		<div style="border-color: black; width: 100px; height:100px;">
+			<p:graphicImage value="/Views/Images/vaai.png" style="heigth:50px; width:150px;"/>		
+		</div>
+		<div style="text-align: right">
+			<a class="entrar-perfil" href="perfil-usuario.xhtml">
+			<i class="fa fa-user-circle-o" aria-hidden="true" ></i>Perfil</a>
+		</div>
+		<br/>
+		<h:form>
+			<h:outputText value="Contratante:  " />
+			<h:outputText value="#{userBean.user.cpfUser}" />
+		</h:form>
+</div>
+
+</body> 
+</html>

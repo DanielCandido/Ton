@@ -50,8 +50,9 @@ public class UserBean  implements Serializable{
 	 * @return
 	 */
 	public String registerUser() throws JsonParseException, JsonMappingException, IOException {
-
+		
 		User user = new User();
+		user.setIdUser(1);
 		ObjectMapper tConversorJsonJava = new ObjectMapper();
 		
 		String tUserJson1 = tConversorJsonJava.writeValueAsString(user);

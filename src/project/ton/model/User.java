@@ -20,7 +20,7 @@ import project.ton.json.ProviderSituationDeserializerJson;
 import project.ton.json.ProviderSituationSerializeJson;
 
 @Entity()
-@Table(name="USERS", schema="TONDBA")
+@Table(name="USERS", schema="DanielDB")
 @SequenceGenerator(name="IDUSER_SEQ", sequenceName="IDUSER_SEQ")
 public class User implements Comparable<User>{
 	@Id()
