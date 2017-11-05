@@ -26,7 +26,7 @@ public class ProviderDTO extends AbstractDto<Provider>{
 	}
 	   public ProviderDTO(boolean pOk, String pMensagem, List<Provider> pList)
 	    {
-	        super(pOk, pMensagem);
+	        super(pOk, pMensagem,pList);
 	        list = pList;
 	    }
 

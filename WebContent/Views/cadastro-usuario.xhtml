@@ -54,30 +54,41 @@
 				
 				<p:outputLabel value="Celular" /><br/>
 				<p:inputMask mask="(99) 9999-9999" id="celularPessoa" value="#{userBean.user.cellPhoneUser}" /><br/><br/>
-				<p:outputLabel value="CEP" /><br/>
-				<p:inputText id="cepPessoa" value="#{userBean.user.cepUser}" /><br/><br/>
 				<p:outputLabel value="Telefone"/><br/>
 				<p:inputMask mask="(99) 9999-9999" id="telefonePessoa" value="#{userBean.user.phoneUser}"/><br/><br/>
+				<p:outputLabel value="CEP" /><br/>
+				<p:inputMask mask="99.999-999" id="cepPessoa" value="#{userBean.user.cepUser}" /><br/><br/>
 				<p:outputLabel value="Endereco"/><br/>
 				<p:inputText id="enderecoPessoa" value="#{userBean.user.adressUser}"/><br/><br/>
 				<p:outputLabel value="Senha"/><br/>
 				<p:password id="passwordPessoa" value="#{userBean.user.passwordUser}"/><br/><br/>
-				
-				
-				
+				<p:outputLabel value="Deseja ser um prestador?"/><br/>
+				<p:selectOneRadio value ="#{userBean.user.situation}"
+					required="true" requiredMessage="Campo obrigatório">
+					<f:selectItem  itemLabel="Sim" itemValue="true"/>
+					<f:selectItem itemLabel="Não" itemValue="false"/>
+					<f:ajax event="click" render="prestadorCadastro"/>
+					
+				</p:selectOneRadio>
+
 			</div>
-				<div style="text-align: center;">
-				<h:panelGrid style="margin-botton:10px" columns="2">
-					<h:outputText value="Deseja ser um prestador?"/><br/>
-					<h:outputText value="Sim"/><p:selectBooleanCheckbox value="#{userBean.user.situation}"  />	
-					<h:outputText value="Não"/><p:selectBooleanCheckbox value="#{userBean.user.situation}"/>
+			</h:form>
+				<h:panelGroup action="#{providerBean.registerProvider()}" id="prestadorCadastro" style="margin-botton:10px" columns="2">
+					<h:panelGrid rendered="#{userBean.user.situation}" style="text-align:center">
+					<p:outputLabel value="Qual tipo de serviço fornece?"/>
+					<p:selectOneMenu style="width:190px;" id="category" value="#{providerBean.provider.subcategory}">
+						<f:selectItem itemLabel="Selecione"/>
+						<f:selectItem />
+					</p:selectOneMenu><br/>
+					<p:outputLabel value="Horário abertura"/>
+					<p:inputMask id="abertura" mask="99:99 hrs" value="#{providerBean.provider.timeOpen}"/><br/>
+					<p:outputLabel value="Horário fechamento"/>
+					<p:inputMask id="fechamento" mask="99:99 hrs" value="#{providerBean.provider.timeClose}"/><br/>	
 					</h:panelGrid>
+				</h:panelGroup>	
 					<br/><br/>
 				<p:commandButton id="cadastrar" value="Casdastrar" action="#{userBean.registerUser()}"/>
 			</div>
-			</h:form>
-		</div>
-		
-	
+			
 </h:body> 
 </html>

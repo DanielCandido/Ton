@@ -26,7 +26,7 @@ public class UserWSTest {
 
 		User user1 = new User(1, "Valentina", "Margarita", "valen@hotmail", "12.212.212-21", "100.000.000-03",
 				"(41)3032-2120", "(41)9798-9695", "Rua rei ragnar", "80.800-000", "123456", new Date(),
-				ProviderSituation.N);
+				"S");
 
 		// Convertendo o objeto para JSON
 		String tUserJson1 = tConversorJsonJava.writeValueAsString(user1);
@@ -35,7 +35,7 @@ public class UserWSTest {
 
 		User user2 = new User(2, "Miguel", "Valadares", "miguel@gmail.com", "12.222.111-00", "100.001.001-10",
 				"(41)3434-3131", "(41)97955997", "Rua juscelino", "80.080-090", "123456", new Date(),
-				ProviderSituation.S);
+				"S");
 
 		// Convertendo o objeto para JSON
 		String tUserJson2 = tConversorJsonJava.writeValueAsString(user2);

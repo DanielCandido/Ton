@@ -24,6 +24,7 @@
   <mapping class="project.ton.model.OrderService"/>
   <mapping class="project.ton.model.Contract"/>
   <mapping class="project.ton.model.Provider"/>
+  <mapping class="project.ton.model.Category"/>
   
 
   

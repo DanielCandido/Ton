@@ -22,9 +22,9 @@ public class UserDAOTest {
 		System.out.println();
 		//Criando objetos
 		User user1 = new User(5,"Maria","Dolores","mariadolores@gmail.com","12.212.313-5","101.201.801-18","(41)3535-3636",
-				"9897-9798","Rua dos milagres, 38","80.580-070","123456",new Date(),ProviderSituation.N);
+				"9897-9798","Rua dos milagres, 38","80.580-070","123456",new Date(),"N");
 		User user2 = new User(6,"Daenerys","Targaryen","dracarys@drogon.com","12.412.717-71","101.101.101-10","3131-3232",
-				"(41)9896-9896","Rua das Oliveiras, 87","87.587-080","123456",new Date(),ProviderSituation.S);
+				"(41)9896-9896","Rua das Oliveiras, 87","87.587-080","123456",new Date(),"S");
 
 		//Criando objeto de persistencia
 		UserDAO tUser = DaoFactory.getUserDAO();
@@ -71,7 +71,7 @@ public class UserDAOTest {
 		user1.setAdressUser(user1.getAdressUser());
 		user1.setCepUser(user1.getCepUser());
 		user1.setPasswordUser("789456");
-		user1.setSituation(ProviderSituation.S);
+		user1.setSituation("S");
 
 
 		User pUser =  tUser.update(user1);

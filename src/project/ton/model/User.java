@@ -63,16 +63,13 @@ public class User implements Comparable<User>{
 	private Date registerDate;
 
 	@Column(name="PROVIDER")
-	@Enumerated(EnumType.ORDINAL)
-	@JsonSerialize(using = ProviderSituationSerializeJson.class)
-	@JsonDeserialize(using = ProviderSituationDeserializerJson.class)
-	private ProviderSituation situation;
+	private String situation;
 
 
 
 	public User(Integer pId,String pFirstNameUser, String pLastNameUser, String pEmailUser, String pRgUser,
 			String pCpfUser, String pPhoneUser, String pCellPhoneUser, String pAdressuser, String pCepUser, String pPasswordUser,
-			Date pRegisterDate, ProviderSituation pSituation)
+			Date pRegisterDate, String pSituation)
 	{
 		super();
 		setIdUser(pId);
@@ -191,12 +188,17 @@ public class User implements Comparable<User>{
 		this.registerDate = registerDate;
 	}
 
-	public ProviderSituation getSituation() {
+	
+	public String getSituation() {
 		return situation;
 	}
 
-	public void setSituation(ProviderSituation situation) {
+	public void setSituation(String situation) {
 		this.situation = situation;
+	}
+
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
 	}
 
 	@Override

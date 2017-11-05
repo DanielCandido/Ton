@@ -390,7 +390,7 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 			tComandoJDBC.setString(i++, pUser.getAdressUser());
 			tComandoJDBC.setString(i++, pUser.getCepUser());
 			tComandoJDBC.setString(i++, pUser.getPasswordUser());
-			tComandoJDBC.setString(i++, String.valueOf(pUser.getSituation().getCodigo()));
+			tComandoJDBC.setString(i++, pUser.getSituation());
 			tComandoJDBC.setString(i++, pUser.getEmailUser());
 
 			// Executando o comando de regravação e salvando o número de
