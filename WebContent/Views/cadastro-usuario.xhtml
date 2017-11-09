@@ -28,7 +28,7 @@
 		</h:form>
 		</div>	
 	<div style="text-align: center">
-		<h:form>
+		<h:form >
 			<br/>
 			<div >
 			<h:graphicImage value="/Views/Images/cadastre-se.png" />
@@ -70,9 +70,7 @@
 					<f:ajax event="click" render="prestadorCadastro"/>
 					
 				</p:selectOneRadio>
-
-			</div>
-			</h:form>
+				
 				<h:panelGroup action="#{providerBean.registerProvider()}" id="prestadorCadastro" style="margin-botton:10px" columns="2">
 					<h:panelGrid rendered="#{userBean.user.situation}" style="text-align:center">
 					<p:outputLabel value="Qual tipo de serviço fornece?"/>
@@ -86,6 +84,10 @@
 					<p:inputMask id="fechamento" mask="99:99 hrs" value="#{providerBean.provider.timeClose}"/><br/>	
 					</h:panelGrid>
 				</h:panelGroup>	
+
+			</div>
+			</h:form>
+				
 					<br/><br/>
 				<p:commandButton id="cadastrar" value="Casdastrar" action="#{userBean.registerUser()}"/>
 			</div>

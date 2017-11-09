@@ -1,7 +1,6 @@
 package project.ton.controller;
 
 
-import java.util.Date;
 import java.util.List;
 
 import project.ton.dao.hibernate.DaoFactory;
@@ -43,7 +42,6 @@ public class UserController {
 	 public UserDTO cadastrar(User pUser)
 	    {
 		 
-		 int i = 1;
 	        // Validando os parÃ¢metros de entrada
 	        if (pUser == null)
 	            return new UserDTO(false, "Tentativa de inserir um usuario nulo");

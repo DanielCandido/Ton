@@ -4,31 +4,21 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import project.ton.enums.ProviderSituation;
-import project.ton.json.ProviderSituationDeserializerJson;
-import project.ton.json.ProviderSituationSerializeJson;
 
 @Entity()
 @Table(name="USERS", schema="DanielDB")
-@SequenceGenerator(name="IDUSER_SEQ", sequenceName="IDUSER_SEQ")
 public class User implements Comparable<User>{
-	@Id()
-	@Column(name="ID_USER")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GERADOR_IDUSER")
-	@SequenceGenerator(name = "GERADOR_IDUSER", sequenceName = "IDUSER_SEQ", allocationSize = 1)
-	private Integer idUser;
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="CPF_USER")
+	private Long cpfUser;
+	
 	@Column(name="FIRSTNAME_USER")
 	private String firstNameUser;
 
@@ -40,9 +30,6 @@ public class User implements Comparable<User>{
 
 	@Column(name="RG_USER")
 	private String rgUser;
-
-	@Column(name="CPF_USER")
-	private String cpfUser;
 
 	@Column(name="PHONE_USER")
 	private String phoneUser;
@@ -67,12 +54,11 @@ public class User implements Comparable<User>{
 
 
 
-	public User(Integer pId,String pFirstNameUser, String pLastNameUser, String pEmailUser, String pRgUser,
-			String pCpfUser, String pPhoneUser, String pCellPhoneUser, String pAdressuser, String pCepUser, String pPasswordUser,
+	public User(String pFirstNameUser, String pLastNameUser, String pEmailUser, String pRgUser,
+			Long pCpfUser, String pPhoneUser, String pCellPhoneUser, String pAdressuser, String pCepUser, String pPasswordUser,
 			Date pRegisterDate, String pSituation)
 	{
 		super();
-		setIdUser(pId);
 		setFirstNameUser(pFirstNameUser);
 		setLastNameUser(pLastNameUser);
 		setEmailUser(pEmailUser);
@@ -90,14 +76,6 @@ public class User implements Comparable<User>{
 
 	public User() {
 		super();
-	}
-
-	public int getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
 	}
 
 	public String getFirstNameUser() {
@@ -132,11 +110,13 @@ public class User implements Comparable<User>{
 		this.rgUser = rgUser;
 	}
 
-	public String getCpfUser() {
+	
+	
+	public Long getCpfUser() {
 		return cpfUser;
 	}
 
-	public void setCpfUser(String cpfUser) {
+	public void setCpfUser(Long cpfUser) {
 		this.cpfUser = cpfUser;
 	}
 
@@ -197,10 +177,10 @@ public class User implements Comparable<User>{
 		this.situation = situation;
 	}
 
-	public void setIdUser(Integer idUser) {
+	/*public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
-
+*/
 	@Override
 	public int compareTo(User o) {
 		// TODO Auto-generated method stub
@@ -213,8 +193,6 @@ public class User implements Comparable<User>{
     {
         StringBuilder tBuilder = new StringBuilder();
         tBuilder.append("Users [");
-        tBuilder.append(getIdUser());
-        tBuilder.append(", ");
         tBuilder.append(getFirstNameUser());
         tBuilder.append(", ");
         tBuilder.append(getLastNameUser());

@@ -49,11 +49,11 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 
 			// Colocando os parametros recebidos no JDBC
 			int i = 1;
+			tComandoJDBC.setLong(i++, pUser.getCpfUser());
 			tComandoJDBC.setString(i++, pUser.getFirstNameUser());
 			tComandoJDBC.setString(i++, pUser.getLastNameUser());
 			tComandoJDBC.setString(i++, pUser.getEmailUser());
 			tComandoJDBC.setString(i++, pUser.getRgUser());
-			tComandoJDBC.setString(i++, pUser.getCpfUser());
 			tComandoJDBC.setString(i++, pUser.getPhoneUser());
 			tComandoJDBC.setString(i++, pUser.getCellPhoneUser());
 			tComandoJDBC.setString(i++, pUser.getAdressUser());

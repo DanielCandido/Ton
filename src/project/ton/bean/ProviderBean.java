@@ -3,7 +3,6 @@ package project.ton.bean;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 
@@ -14,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import project.ton.controller.ProviderController;
 import project.ton.dao.hibernate.ProviderDAOHibernate;
 import project.ton.model.Provider;
-import project.ton.model.User;
 import project.ton.util.JsonUtil;
 
 @Named("providerBean")
@@ -39,10 +37,8 @@ public class ProviderBean implements Serializable {
 	 * @return
 	 */
 	public String registerProvider() throws JsonParseException, JsonMappingException, IOException {
-		
-		User user = new User();
+	
 		Provider provider = new Provider();
-		provider.setIdProvider(user.getIdUser());
 		ObjectMapper tConversorJsonJava = new ObjectMapper();
 		
 		String tUserJson1 = tConversorJsonJava.writeValueAsString(provider);

@@ -29,9 +29,8 @@ public class UserWS {
         try {
             HttpSession session = request.getSession();
             User user = new User();
-            int userId = Integer.parseInt(session.getAttribute("userId").toString());
-
-            user.setIdUser(userId);
+            long cpfUser = session.getCreationTime(); 
+            user.setCpfUser(cpfUser);
 
         } catch(NullPointerException ex) {
 

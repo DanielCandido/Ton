@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import project.ton.dao.hibernate.DaoFactory;
 import project.ton.dao.i.UserDAO;
 import project.ton.dto.UserDTO;
-import project.ton.enums.ProviderSituation;
 import project.ton.hibernate.HibernateUtil;
 import project.ton.model.User;
 import project.ton.util.ExceptionUtil;
@@ -24,7 +23,7 @@ public class UserWSTest {
 
 		ObjectMapper tConversorJsonJava = new ObjectMapper();
 
-		User user1 = new User(1, "Valentina", "Margarita", "valen@hotmail", "12.212.212-21", "100.000.000-03",
+		User user1 = new User("Valentina", "Margarita", "valen@hotmail", "12.212.212-21", (long)555555555,
 				"(41)3032-2120", "(41)9798-9695", "Rua rei ragnar", "80.800-000", "123456", new Date(),
 				"S");
 
@@ -33,7 +32,7 @@ public class UserWSTest {
 		System.out.println("Usuario convertido em JSON");
 		System.out.println(tUserJson1);
 
-		User user2 = new User(2, "Miguel", "Valadares", "miguel@gmail.com", "12.222.111-00", "100.001.001-10",
+		User user2 = new User("Miguel", "Valadares", "miguel@gmail.com", "12.222.111-00", (long)666666666,
 				"(41)3434-3131", "(41)97955997", "Rua juscelino", "80.080-090", "123456", new Date(),
 				"S");
 
@@ -43,7 +42,7 @@ public class UserWSTest {
 		System.out.println(tUserJson2);
 
 		// Criando DAO
-		UserDAO tUserDAO = DaoFactory.getUserDAO();
+		
 		try {
 
 			HibernateUtil.iniciarTransacao();

@@ -56,6 +56,7 @@ public class HibernateUtil
 	        SessionFactory tFactory = HibernateUtil.getSessionFactory();
 	        Session tSessao = tFactory.getCurrentSession();
 	        Transaction tTransacao = tSessao.getTransaction();
+	        tSessao.save(tTransacao);
 	        tTransacao.commit();
 	    }
 

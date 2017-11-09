@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -33,14 +34,13 @@ public class UserDAOHibernate implements UserDAO
 	public User createUser(User user) {
 		try {
 			// Obtendo a sessao hiberanate
-			SessionFactory tFactory = HibernateUtil.getSessionFactory();
-			Session tSession = tFactory.getCurrentSession();
-
+			Session tFactory = HibernateUtil.getSessionFactory().openSession();
 			// Salvando via hibernate
 			
-			tSession.save(user);
-			tSession.flush();
-			tSession.close();
+			tFactory.beginTransaction();
+			tFactory.save(user);
+			tFactory.getTransaction().commit();
+			tFactory.close();
 
 			return user;
 		} catch (HibernateException tExcept) {
@@ -53,7 +53,6 @@ public class UserDAOHibernate implements UserDAO
 	
 	public boolean loginUser(String emailLogin, String senhaLogin) {
 		boolean result = false;
-		User tUser = null;
 
 		try {
 			AcessDAO acessoDAO = new AcessDAO();
