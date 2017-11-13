@@ -25,9 +25,8 @@ public class OrderService {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GERADOR_IDORDER")
     @SequenceGenerator(name = "GERADOR_IDORDER", sequenceName = "IDORDERSERVICE_SEQ", allocationSize = 1)
     private int idOrder;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SERVICE_PROVIDER_ID", referencedColumnName = "ID_PROVIDER" ,nullable = false)
-    private Provider provider;
+    @Column(name="SERVICE_PROVIDER_ID")
+    private String provider;
     @Column(name="DATE_ORDER")
 	private Date dateOrder;
 	@Column(name="CEP_ORDER")
@@ -35,8 +34,10 @@ public class OrderService {
 	@Enumerated(EnumType.ORDINAL)
     @Column(name="STATUS_ORDER")
 	private OrderServiceSituation situation;
+	@Column(name="USER_ID_USER")
+	private String userId;
 
-	public OrderService(int pIdOrder, Provider pProvider,Date pDateOrder,String cepOrder,OrderServiceSituation pOrderSituation)
+	public OrderService(int pIdOrder, String pProvider,Date pDateOrder,String cepOrder,OrderServiceSituation pOrderSituation, String pUserID)
 	{
 	    super();
 	    setIdOrder(pIdOrder);
@@ -44,6 +45,7 @@ public class OrderService {
 	    setDateOrder(pDateOrder);
 	    setCepOrder(cepOrder);
 	    setSituation(pOrderSituation);
+	    setUserId(pUserID);
 	}
 
 
@@ -59,12 +61,27 @@ public class OrderService {
 	public void setIdOrder(int idOrder) {
 		this.idOrder = idOrder;
 	}
-	public Provider getProvider() {
+
+	public String getProvider() {
 		return provider;
 	}
-	public void setProvider(Provider provider) {
+
+
+	public void setProvider(String provider) {
 		this.provider = provider;
 	}
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
 	public Date getDateOrder() {
 		return dateOrder;
 	}

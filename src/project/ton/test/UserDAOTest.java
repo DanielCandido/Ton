@@ -20,9 +20,9 @@ public class UserDAOTest {
 		System.out.println("Iniciando transação");
 		System.out.println();
 		//Criando objetos
-		User user1 = new User("Maria","Dolores","mariadolores@gmail.com","12.212.313-5",(long) 111111111,"(41)3535-3636",
+		User user1 = new User("Maria","Dolores","mariadolores@gmail.com","12.212.313-5","5005050050","(41)3535-3636",
 				"9897-9798","Rua dos milagres, 38","80.580-070","123456",new Date(),"N");
-		User user2 = new User("Daenerys","Targaryen","dracarys@drogon.com","12.412.717-71",(long)222222222,"3131-3232",
+		User user2 = new User("Daenerys","Targaryen","dracarys@drogon.com","12.412.717-71","10310310313","3131-3232",
 				"(41)9896-9896","Rua das Oliveiras, 87","87.587-080","123456",new Date(),"S");
 
 		//Criando objeto de persistencia

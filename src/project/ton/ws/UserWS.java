@@ -29,7 +29,7 @@ public class UserWS {
         try {
             HttpSession session = request.getSession();
             User user = new User();
-            long cpfUser = session.getCreationTime(); 
+            String cpfUser = session.getId(); 
             user.setCpfUser(cpfUser);
 
         } catch(NullPointerException ex) {

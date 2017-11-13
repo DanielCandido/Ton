@@ -23,7 +23,7 @@ public class UserWSTest {
 
 		ObjectMapper tConversorJsonJava = new ObjectMapper();
 
-		User user1 = new User("Valentina", "Margarita", "valen@hotmail", "12.212.212-21", (long)555555555,
+		User user1 = new User("103.103.103-13","Valentina", "Margarita", "valen@hotmail", "12.212.212-21", 
 				"(41)3032-2120", "(41)9798-9695", "Rua rei ragnar", "80.800-000", "123456", new Date(),
 				"S");
 
@@ -32,7 +32,7 @@ public class UserWSTest {
 		System.out.println("Usuario convertido em JSON");
 		System.out.println(tUserJson1);
 
-		User user2 = new User("Miguel", "Valadares", "miguel@gmail.com", "12.222.111-00", (long)666666666,
+		User user2 = new User("102.002.002-02","Miguel", "Valadares", "miguel@gmail.com", "12.222.111-00", 
 				"(41)3434-3131", "(41)97955997", "Rua juscelino", "80.080-090", "123456", new Date(),
 				"S");
 

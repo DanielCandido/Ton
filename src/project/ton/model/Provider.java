@@ -16,53 +16,82 @@ import javax.persistence.Table;
 @SequenceGenerator(name="IDPROVIDER_SEQ", sequenceName="IDPROVIDER_SEQ")
 public class Provider {
 
-	@Id()
-	@Column(name="ID_PROVIDER")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GERADOR_IDPROVIDER")
-	@SequenceGenerator(name = "GERADOR_IDPROVIDER", sequenceName = "IDPROVIDER_SEQ", allocationSize = 1)
-	private Integer idProvider;
+	@Id
+	@Column(name="ID_SERVICE_PROVIDER")
+	private String idProvider;
+	@Column(name="NAME_PROVIDER")
+	private String nameProvider;
+	@Column(name="CATEGORY")
+	private int category;
 	@Column(name="SUBCATEGORY")
-	private int subcategory;
+	private String subcategory;
 	@Column(name="TIME_OPEN")
 	private String timeOpen;
 	@Column(name="TIME_CLOSE")
 	private String timeClose;
 
-	public Provider(int pId, int pSubcategory, String pTimeOpen, String pTimeClose ){
+	public Provider(String pId, String pName, int pCategory, String pSubcategory, String pTimeOpen, String pTimeClose ){
 		super();
 		setIdProvider(pId);
+		setNameProvider(pName);
+		setCategory(pCategory);
 		setSubcategory(pSubcategory);
 		setTimeOpen(pTimeOpen);
 		setTimeClose(pTimeClose);
 	}
 
-
-	public Provider(){
-		super();
+	public Provider() {
+		// TODO Auto-generated constructor stub
 	}
-	public int getIdProvider() {
+
+	public String getIdProvider() {
 		return idProvider;
 	}
-	public void setIdProvider(int idProvider) {
+
+	public void setIdProvider(String idProvider) {
 		this.idProvider = idProvider;
 	}
-	public int getSubcategory() {
+
+	public String getNameProvider() {
+		return nameProvider;
+	}
+
+	public void setNameProvider(String nameProvider) {
+		this.nameProvider = nameProvider;
+	}
+
+	public int getCategory() {
+		return category;
+	}
+
+	public void setCategory(int category) {
+		this.category = category;
+	}
+
+	public String getSubcategory() {
 		return subcategory;
 	}
-	public void setSubcategory(int subcategory) {
+
+	public void setSubcategory(String subcategory) {
 		this.subcategory = subcategory;
 	}
+
 	public String getTimeOpen() {
 		return timeOpen;
 	}
+
 	public void setTimeOpen(String timeOpen) {
 		this.timeOpen = timeOpen;
 	}
+
 	public String getTimeClose() {
 		return timeClose;
 	}
+
 	public void setTimeClose(String timeClose) {
 		this.timeClose = timeClose;
 	}
 
+
+	
 }

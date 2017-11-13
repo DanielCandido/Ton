@@ -94,7 +94,6 @@ public class UserDAOHibernate implements UserDAO
 			Session tSessao = tFactory.getCurrentSession();
 
 			// Recuperando o objeto via hibernate
-
             Criteria tCriterio = tSessao.createCriteria(User.class)
                     .add(Restrictions.like("emailUser", email));
 

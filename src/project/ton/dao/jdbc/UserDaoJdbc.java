@@ -14,7 +14,7 @@ import project.ton.util.ExceptionUtil;
 public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 
 	private static String sTabela = "USERS";
-	private static String sCampos1 = "ID_USER, FIRSTNAME_USER, LASTNAME_USER, EMAIL_USER, RG_USER, CPF_USER,"
+	private static String sCampos1 = "CPF_USER, FIRSTNAME_USER, LASTNAME_USER, EMAIL_USER, RG_USER,"
 			+ " PHONE_USER, CELLPHONE_USER, ADRESS_USER, CEP_USER, PASSWORD_USER, REGISTER_DATE, PROVIDER";
 
 	private static String sCampos4 = "FIRSTNAME_USER, LASTNAME_USER, EMAIL_USER, PHONE_USER,"
@@ -49,7 +49,7 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 
 			// Colocando os parametros recebidos no JDBC
 			int i = 1;
-			tComandoJDBC.setLong(i++, pUser.getCpfUser());
+			tComandoJDBC.setString(i++, pUser.getCpfUser());
 			tComandoJDBC.setString(i++, pUser.getFirstNameUser());
 			tComandoJDBC.setString(i++, pUser.getLastNameUser());
 			tComandoJDBC.setString(i++, pUser.getEmailUser());

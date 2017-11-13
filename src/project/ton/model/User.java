@@ -5,19 +5,22 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity()
-@Table(name="USERS", schema="DanielDB")
+@Table(name="USERS", schema="DanielDB" , uniqueConstraints={@UniqueConstraint(columnNames="CPF_USER)")})
 public class User implements Comparable<User>{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name="uuid" , strategy = "uuid2")
 	@Column(name="CPF_USER")
-	private Long cpfUser;
+	private String cpfUser;
 	
 	@Column(name="FIRSTNAME_USER")
 	private String firstNameUser;
@@ -55,7 +58,7 @@ public class User implements Comparable<User>{
 
 
 	public User(String pFirstNameUser, String pLastNameUser, String pEmailUser, String pRgUser,
-			Long pCpfUser, String pPhoneUser, String pCellPhoneUser, String pAdressuser, String pCepUser, String pPasswordUser,
+			String pCpfUser, String pPhoneUser, String pCellPhoneUser, String pAdressuser, String pCepUser, String pPasswordUser,
 			Date pRegisterDate, String pSituation)
 	{
 		super();
@@ -112,12 +115,12 @@ public class User implements Comparable<User>{
 
 	
 	
-	public Long getCpfUser() {
+	public String getCpfUser() {
 		return cpfUser;
 	}
 
-	public void setCpfUser(Long cpfUser) {
-		this.cpfUser = cpfUser;
+	public void setCpfUser(String i) {
+		this.cpfUser = i;
 	}
 
 	public String getPhoneUser() {

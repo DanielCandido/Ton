@@ -2,7 +2,6 @@ package project.ton.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -10,18 +9,15 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tools.ant.taskdefs.EchoXML;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import project.ton.controller.UserController;
 import project.ton.dao.hibernate.UserDAOHibernate;
-import project.ton.hibernate.HibernateUtil;
+import project.ton.dto.UserDTO;
 import project.ton.model.User;
-import project.ton.util.JsonUtil;
 import project.ton.util.SessionUtils;
+import project.ton.ws.UserWS;
 
 @Named("userBean")
 @SessionScoped
@@ -53,22 +49,22 @@ public class UserBean implements Serializable {
 	 * @return
 	 */
 	public void registerUser() throws JsonParseException, JsonMappingException, IOException {
-
-		ObjectMapper tConversorJsonJava = new ObjectMapper();
-		user.setRegisterDate(new Date());
-		String tUserJson1 = tConversorJsonJava.writeValueAsString(user);
-		System.out.println(user);
 		
-		try {
-			HibernateUtil.iniciarTransacao();
-			System.out.println("Incluindo os usuarios validos");
-			JsonUtil.enviarPost("http://localhost:8180/TON-WS/WS/Usuario/Cadastrar", tUserJson1);
-			HibernateUtil.confirmarTransacao();
-		} catch (Exception e) {
-			e.printStackTrace();
-			HibernateUtil.cancelarTransacao();
+		UserWS userWS = new UserWS();
+		
+		userWS.cadastrar(user);
+		
+		/*User tUser = getUser();
+		UserController tUserController = new UserController();
+		UserDTO tUserDTO = tUserController.cadastrar(tUser);
+		
+		if (tUserDTO.isOk()){
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, tUserDTO.getMensagem(), "Processo de inclusão"));
+
 		}
-		HibernateUtil.fecharConexao();
+		else 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tUserDTO.getMensagem(),"Processo de inclusão"));*/
 	}
 	
 
@@ -86,10 +82,55 @@ public class UserBean implements Serializable {
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email ou senha incorreto", null));
-			return "LoginDoador";
+			return "login_user";
 		}
 	}
 
+	
+	/* public void imprimir()
+	    {
+	        try
+	        {
+	            // Obtendo o relatório compilado
+	            JasperReport jasperReport = JasperFactory.getRelacaoAlunosPesquisados();
+
+	            // DataSource para a lista de alunos pesquisada
+	            JRDataSource tDataSource = new JRBeanCollectionDataSource(listaAlunos);
+
+	            // Preenchendo o relatório
+	            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, tDataSource);
+
+	            // Gerando o relatório em um array de bytes
+	            byte[] tRelatorio = JasperExportManager.exportReportToPdf(jasperPrint);
+
+	            // Obtendo o contexto externo da aplicação
+	            FacesContext tCtxJsf = FacesContext.getCurrentInstance();
+	            ExternalContext tCtxExterno = tCtxJsf.getExternalContext();
+
+	            // Retirando algum header previamente colocado pelo JSF
+	            tCtxExterno.responseReset();
+
+	            // Obtendo o buffer de saida do contexto externo
+	            OutputStream tSaida = tCtxExterno.getResponseOutputStream();
+
+	            // Configurando os headers para o browse
+	            tCtxExterno.setResponseContentType("application/pdf");
+	            tCtxExterno.setResponseContentLength(tRelatorio.length);
+
+	            // Gravando o relatório no stream de saida
+	            tSaida.write(tRelatorio);
+
+	            // Indicando para o JSF não renderizar a página
+	            tCtxJsf.responseComplete();
+	        }
+	        catch (IOException | JRException tExcept)
+	        {
+	           throw new RuntimeException(tExcept);
+
+	        }
+	    }*/
+	
+	
 	public void info() {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Campo Obrigatorio"));

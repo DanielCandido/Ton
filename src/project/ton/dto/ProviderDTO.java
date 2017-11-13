@@ -31,7 +31,11 @@ public class ProviderDTO extends AbstractDto<Provider>{
 	    }
 
 
-	   /* metodos de acesso*/
+	   public ProviderDTO() {
+
+	   }
+
+	/* metodos de acesso*/
 	   public Provider getProvider()
 	    {
 	        return provider;

@@ -39,10 +39,11 @@ public class OrderServiceJdbc extends AbstractDAO<OrderService> implements Order
 			//Colocando os parametros
 			int i= 1;
 			tComandoJDBC.setInt(i++, orderService.getIdOrder());
-			tComandoJDBC.setInt(i++, orderService.getProvider().getIdProvider());
+			tComandoJDBC.setString(i++, orderService.getProvider());
 			tComandoJDBC.setDate(i++, new java.sql.Date(orderService.getDateOrder().getTime()));
 			tComandoJDBC.setString(i++, orderService.getCepOrder());
 			tComandoJDBC.setString(i++, String.valueOf(orderService.getSituation()));
+			tComandoJDBC.setString(i++, orderService.getUserId());
 			
 			tComandoJDBC.executeQuery();
 			

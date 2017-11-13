@@ -7,6 +7,25 @@
 
 <h:head></h:head> 
 <body> 
-	<p:dataList value="#{providerBean.}"></p:dataList>
+	<p:dataTable value="#{providerBean.listProvider()}">
+		<p:column headerText="CPF">
+			<h:outputText value="#{providerBean.provider.idProvider}" />
+		</p:column>
+		<p:column headerText="NOME">
+			<h:outputText value="#{providerBean.provider.nameProvider}" />
+		</p:column>
+		<p:column headerText="CATEGORIA">
+			<h:outputText value="#{providerBean.provider.category}" />
+		</p:column>
+		<p:column headerText="SUBCATEGORIA">
+			<h:outputText value="#{providerBean.provider.subcategory}" />
+		</p:column>
+		<p:column headerText="HORARIO ABERTURA">
+			<h:outputText value="#{providerBean.provider.timeOpen}" />
+		</p:column>
+		<p:column headerText="HORARIO FECHAMENTO">
+			<h:outputText value="#{providerBean.provider.timeClose}" />
+		</p:column>		
+	</p:dataTable>
 </body> 
 </html>
