@@ -5,27 +5,29 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"> 
 
-<h:head></h:head> 
-<body> 
-	<p:dataTable value="#{providerBean.listProvider()}">
-		<p:column headerText="CPF">
-			<h:outputText value="#{providerBean.provider.idProvider}" />
+<h:head>
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+</h:head> 
+<body > 
+	
+	<br/>
+	<form style="width: 600px; text-align: center; ">
+	<p:dataTable value="#{providerBean.list}" var="provider" emptyMessage="Nenhum Registro Encontrado">
+	<f:facet name="header">Listagem de serviços</f:facet>
+		<p:column>
+			<f:facet name="header">Nome Serviço</f:facet>
+			<h:outputText value="#{provider.nameProvider}" />
 		</p:column>
-		<p:column headerText="NOME">
-			<h:outputText value="#{providerBean.provider.nameProvider}" />
+		<p:column>
+			<f:facet name="header">Subcategoria</f:facet>
+			<h:outputLabel value="#{provider.subcategory}" />
+		</p:column>	
+		<p:column>
+			<f:facet name="header">Visualizar</f:facet>
+			<p:button icon="fa fa-search" aria-hidden="true" value="">
+			</p:button>
 		</p:column>
-		<p:column headerText="CATEGORIA">
-			<h:outputText value="#{providerBean.provider.category}" />
-		</p:column>
-		<p:column headerText="SUBCATEGORIA">
-			<h:outputText value="#{providerBean.provider.subcategory}" />
-		</p:column>
-		<p:column headerText="HORARIO ABERTURA">
-			<h:outputText value="#{providerBean.provider.timeOpen}" />
-		</p:column>
-		<p:column headerText="HORARIO FECHAMENTO">
-			<h:outputText value="#{providerBean.provider.timeClose}" />
-		</p:column>		
 	</p:dataTable>
+	</form>
 </body> 
 </html>

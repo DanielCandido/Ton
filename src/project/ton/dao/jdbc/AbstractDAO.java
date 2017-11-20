@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import project.ton.model.Provider;
 import project.ton.model.User;
 
 
@@ -37,6 +38,10 @@ public abstract class AbstractDAO<T> {
 			return null;
 		}
 
+		public List<Provider> searchByName(String pNome) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		public List<User> searchByCellPhone(String pCellPhone) {
 			// TODO Auto-generated method stub
 			return null;

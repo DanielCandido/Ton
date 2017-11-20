@@ -13,7 +13,7 @@ import project.ton.model.Provider;
 
 @Path("/Servicos")
 public class ProviderWS {
-	
+
 	@POST
 	@Path("/Cadastrar")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -21,12 +21,12 @@ public class ProviderWS {
 	public ProviderDTO cadastrar(Provider tProvider){
 		return new ProviderController().cadastrar(tProvider);
 	}
-	
+
 	@GET
 	@Path("/ListarServico")
-	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Produces(MediaType.APPLICATION_JSON)
 	public ProviderDTO pesquisar(){
 		return new ProviderController().pesquisar();
 	}
-	
+
 }

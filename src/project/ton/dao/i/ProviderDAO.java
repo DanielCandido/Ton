@@ -8,8 +8,6 @@ public interface ProviderDAO {
 
 	public abstract Provider create(Provider provider);
 
-    public abstract Provider recovery(int id);
-
     public abstract Provider update(String email, String senha);
 
     public abstract Provider update(Provider provider);
@@ -20,9 +18,6 @@ public interface ProviderDAO {
 
     public abstract List<Provider> search();
 
-    public abstract List<Provider> searchByNome(String pNome);
-
-    public abstract List<Provider> searchByCellPhone(String pCellPhone);
-
+    public abstract List<Provider> searchByName(String pNome);
 
 }

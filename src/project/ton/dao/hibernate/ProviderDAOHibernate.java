@@ -1,4 +1,4 @@
-package project.ton.dao.hibernate;
+/*package project.ton.dao.hibernate;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -15,9 +15,9 @@ import project.ton.model.Provider;
 import project.ton.util.ExceptionUtil;
 
 public class ProviderDAOHibernate implements ProviderDAO {
-	
+
 	Connection myConnection;
-	
+
 	public Provider createProvider(Provider provider)
 	{
 		try{
@@ -25,7 +25,7 @@ public class ProviderDAOHibernate implements ProviderDAO {
 			Session tSession = tFactory.getCurrentSession();
 
 			// Salvando via hibernate
-			
+
 			tSession.save(provider);
 			tSession.flush();
 			tSession.close();
@@ -38,11 +38,12 @@ public class ProviderDAOHibernate implements ProviderDAO {
 		}
 		return null;
 	}
-	
-	@SuppressWarnings("unchecked")
+
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Provider> search() {
 		List<Provider> tList = new ArrayList<>();
-		
+
 
         try
         {
@@ -60,13 +61,13 @@ public class ProviderDAOHibernate implements ProviderDAO {
         }
         catch (HibernateException tExcept)
         {
-            ExceptionUtil.mostrarErro(tExcept, "Erro no método de recuperação da lista de Usuarios");
+            ExceptionUtil.mostrarErro(tExcept, "Erro no método de recuperação da lista de Prestadores");
         }
 
         // Retornando a lista de Livros
         return tList;
-		
-		
+
+
 	}
 
 	@Override
@@ -118,3 +119,4 @@ public class ProviderDAOHibernate implements ProviderDAO {
 	}
 
 }
+*/

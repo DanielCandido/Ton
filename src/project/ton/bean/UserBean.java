@@ -1,26 +1,22 @@
 package project.ton.bean;
 
-import java.io.IOException;
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import project.ton.controller.UserController;
 import project.ton.dao.hibernate.UserDAOHibernate;
-import project.ton.dto.UserDTO;
+import project.ton.dao.jdbc.ProviderDAOJdbc;
+import project.ton.model.Provider;
 import project.ton.model.User;
 import project.ton.util.SessionUtils;
-import project.ton.ws.UserWS;
 
-@Named("userBean")
-@SessionScoped
+@ManagedBean(name="userBean")
+@ViewScoped
 public class UserBean implements Serializable {
 
 	/**
@@ -29,42 +25,32 @@ public class UserBean implements Serializable {
 	private static final long serialVersionUID = -826915979470770097L;
 
 	// Atributos globais
-	private User user;
+	private User userSelect = new User();
+	private Provider providerSelect = new Provider();
 	private UserController userController;
 	private UserDAOHibernate userDAO;
 	private String emailLogin;
 
 	private String senhaLogin;
 
-	public UserBean() {
-		user = new User();
-		userController = new UserController();
-		userDAO = new UserDAOHibernate();
-
-	}
-
 	/**
 	 * Metodo para cadastrar
+	 * @return 
 	 * 
 	 * @return
 	 */
-	public void registerUser() throws JsonParseException, JsonMappingException, IOException {
+	public void saveUser() {		
+		UserController userRN = new UserController();
+		System.out.println("Usuario Cadastrado:  " + userSelect);
+		userRN.cadastrar(userSelect);
 		
-		UserWS userWS = new UserWS();
-		
-		userWS.cadastrar(user);
-		
-		/*User tUser = getUser();
-		UserController tUserController = new UserController();
-		UserDTO tUserDTO = tUserController.cadastrar(tUser);
-		
-		if (tUserDTO.isOk()){
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, tUserDTO.getMensagem(), "Processo de inclusão"));
-
+		if(userSelect.isSituation() == true)
+		{
+			
+			ProviderDAOJdbc pjdbc = new ProviderDAOJdbc();
+			pjdbc.create(providerSelect);
+			
 		}
-		else 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, tUserDTO.getMensagem(),"Processo de inclusão"));*/
 	}
 	
 
@@ -141,44 +127,24 @@ public class UserBean implements Serializable {
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Impossivel inserir, Campo nulo"));
 	}
 
-	public User getUser() {
-		return user;
+
+	public User getUserSelect() {
+		return userSelect;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+
+	public void setUserSelect(User userSelect) {
+		this.userSelect = userSelect;
 	}
 
-	public UserController getUserController() {
-		return userController;
+	public Provider getProviderSelect() {
+		return providerSelect;
 	}
 
-	public void setUserController(UserController userController) {
-		this.userController = userController;
+
+	public void setProviderSelect(Provider providerSelect) {
+		this.providerSelect = providerSelect;
 	}
 
-	public UserDAOHibernate getUserDAO() {
-		return userDAO;
-	}
-
-	public void setUserDAO(UserDAOHibernate userDAO) {
-		this.userDAO = userDAO;
-	}
-
-	public String getEmailLogin() {
-		return emailLogin;
-	}
-
-	public void setEmailLogin(String emailLogin) {
-		this.emailLogin = emailLogin;
-	}
-
-	public String getSenhaLogin() {
-		return senhaLogin;
-	}
-
-	public void setSenhaLogin(String senhaLogin) {
-		this.senhaLogin = senhaLogin;
-	}
 
 }

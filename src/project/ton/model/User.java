@@ -2,26 +2,25 @@ package project.ton.model;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity()
-@Table(name="USERS", schema="DanielDB" , uniqueConstraints={@UniqueConstraint(columnNames="CPF_USER)")})
+@Table(name="USERS", schema="DanielCandido")
 public class User implements Comparable<User>{
-	
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name="uuid" , strategy = "uuid2")
-	@Column(name="CPF_USER")
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)	
+	@Column(name="CPF_USER", nullable = false)
 	private String cpfUser;
-	
+
 	@Column(name="FIRSTNAME_USER")
 	private String firstNameUser;
 
@@ -53,13 +52,13 @@ public class User implements Comparable<User>{
 	private Date registerDate;
 
 	@Column(name="PROVIDER")
-	private String situation;
+	private boolean situation;
 
 
 
-	public User(String pFirstNameUser, String pLastNameUser, String pEmailUser, String pRgUser,
-			String pCpfUser, String pPhoneUser, String pCellPhoneUser, String pAdressuser, String pCepUser, String pPasswordUser,
-			Date pRegisterDate, String pSituation)
+	public User(String pCpfUser,String pFirstNameUser, String pLastNameUser, String pEmailUser, String pRgUser,
+			 String pPhoneUser, String pCellPhoneUser, String pAdressuser, String pCepUser, String pPasswordUser,
+			Date pRegisterDate, boolean pSituation)
 	{
 		super();
 		setFirstNameUser(pFirstNameUser);
@@ -73,8 +72,7 @@ public class User implements Comparable<User>{
 		setCepUser(pCepUser);
 		setPasswordUser(pPasswordUser);
 		setRegisterDate(pRegisterDate);
-		setSituation(pSituation);
-
+		setSituation(situation);
 	}
 
 	public User() {
@@ -113,14 +111,14 @@ public class User implements Comparable<User>{
 		this.rgUser = rgUser;
 	}
 
-	
-	
+
+
 	public String getCpfUser() {
 		return cpfUser;
 	}
 
 	public void setCpfUser(String i) {
-		this.cpfUser = i;
+		this.cpfUser = null;
 	}
 
 	public String getPhoneUser() {
@@ -171,12 +169,12 @@ public class User implements Comparable<User>{
 		this.registerDate = registerDate;
 	}
 
-	
-	public String getSituation() {
+
+	public boolean isSituation() {
 		return situation;
 	}
 
-	public void setSituation(String situation) {
+	public void setSituation(boolean situation) {
 		this.situation = situation;
 	}
 
@@ -220,7 +218,7 @@ public class User implements Comparable<User>{
         tBuilder.append(", ");
         tBuilder.append(getRegisterDate());
         tBuilder.append(", ");
-        tBuilder.append(getSituation());
+        tBuilder.append(isSituation());
         tBuilder.append("]");
         return tBuilder.toString();
     }

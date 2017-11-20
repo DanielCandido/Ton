@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -23,20 +22,20 @@ import project.ton.util.ExceptionUtil;
 
 
 public class UserDAOHibernate implements UserDAO
-{ 
+{
 	public UserDAOHibernate(){
-		
+
 	}
 
 	Connection myConnection;
-	
+
 	@Override
 	public User createUser(User user) {
 		try {
 			// Obtendo a sessao hiberanate
 			Session tFactory = HibernateUtil.getSessionFactory().openSession();
 			// Salvando via hibernate
-			
+
 			tFactory.beginTransaction();
 			tFactory.save(user);
 			tFactory.getTransaction().commit();
@@ -50,7 +49,7 @@ public class UserDAOHibernate implements UserDAO
 		}
 		return null;
 	}
-	
+
 	public boolean loginUser(String emailLogin, String senhaLogin) {
 		boolean result = false;
 
@@ -200,7 +199,7 @@ public class UserDAOHibernate implements UserDAO
             System.out.println(tQuery);
             // Recuperando a lista via hibernate
             tLista = tQuery.list();
-           
+
 
         }
         catch (HibernateException tExcept)
@@ -224,15 +223,15 @@ public class UserDAOHibernate implements UserDAO
             SessionFactory tFactory = HibernateUtil.getSessionFactory();
             Session tSessao = tFactory.getCurrentSession();
 
-            
+
             Criteria tCriterio = tSessao.createCriteria(User.class).
             		add(Restrictions.like("firstNameUser", tNomePesquisa)
                             .ignoreCase());
-            
+
 
             // Recuperando a lista via hibernate
             tLista = tCriterio.list();
-            
+
 
         }
         catch (HibernateException tExcept)

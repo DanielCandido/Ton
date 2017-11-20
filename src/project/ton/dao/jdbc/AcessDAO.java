@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class AcessDAO {
 
-	private String dbUrl = "jdbc:oracle:thin:@localhost:1521:XE";
-	private String dbUser = "DanielDB";
+	private String dbUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String dbUser = "DanielCandido";
 	private String dbPassword = "grove170596";
 	private  Connection myConnection;
 

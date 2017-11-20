@@ -42,10 +42,9 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 
 			myConnection = acessoDAO.openConnection();
 			// Criando o comando SQL e o comando JDBC
-			String sqlRegister = "INSERT INTO " + sTabela + " (" + sCampos1 + ") VALUES ("
-					+ sCampos3.replaceFirst("\\?", "IDUSER_SEQ.NEXTVAL") + ")";
+			String sqlRegister = "INSERT INTO " + sTabela + " (" + sCampos1 + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 			System.out.println(sqlRegister);
-			PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlRegister, new String[] { "ID_USER" });
+			PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlRegister);
 
 			// Colocando os parametros recebidos no JDBC
 			int i = 1;
@@ -60,9 +59,12 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 			tComandoJDBC.setString(i++, pUser.getCepUser());
 			tComandoJDBC.setString(i++, pUser.getPasswordUser());
 			tComandoJDBC.setDate(i++, new java.sql.Date(pUser.getRegisterDate().getTime()));
-			tComandoJDBC.setString(i++, String.valueOf(pUser.getSituation()));
+			tComandoJDBC.setBoolean(i++, pUser.isSituation());
 			// executando o comando de gravaÁ„o
-			tComandoJDBC.executeUpdate();
+			
+			System.out.println("Na dao chegou isso: " + pUser);
+			
+			tComandoJDBC.executeQuery();
 
 			// Copiando o objeto para retorno
 			tObject = pUser;
@@ -86,7 +88,7 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 			myConnection = acessoDAO.openConnection();
 
 			// Criando comando sql e jdbc
-			String sqlRecovery = "SELECT " + sCampos4 + " FROM " + sTabela + " WHERE EMAIL_USER = ?";
+			String sqlRecovery = "SELECT " + sCampos1 + " FROM " + sTabela + " WHERE EMAIL_USER = ?";
 			System.out.println("" + sqlRecovery);
 			PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlRecovery);
 
@@ -390,7 +392,7 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 			tComandoJDBC.setString(i++, pUser.getAdressUser());
 			tComandoJDBC.setString(i++, pUser.getCepUser());
 			tComandoJDBC.setString(i++, pUser.getPasswordUser());
-			tComandoJDBC.setString(i++, pUser.getSituation());
+			tComandoJDBC.setBoolean(i++, pUser.isSituation());
 			tComandoJDBC.setString(i++, pUser.getEmailUser());
 
 			// Executando o comando de regrava√ß√£o e salvando o n√∫mero de

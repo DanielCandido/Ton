@@ -7,8 +7,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import project.ton.dao.hibernate.DaoFactory;
-import project.ton.dao.i.UserDAO;
 import project.ton.dto.UserDTO;
 import project.ton.hibernate.HibernateUtil;
 import project.ton.model.User;
@@ -17,13 +15,13 @@ import project.ton.util.JsonUtil;
 
 public class UserWSTest {
 
-	private static String sUrlApplicationWs = "http://localhost:8180/TON-WS/WS/Usuario";
+	private static String sUrlApplicationWs = "http://localhost:9999/TON-WS/WS/Usuario";
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 
 		ObjectMapper tConversorJsonJava = new ObjectMapper();
 
-		User user1 = new User("103.103.103-13","Valentina", "Margarita", "valen@hotmail", "12.212.212-21", 
+		User user1 = new User("103.103.103-13","Valentina", "Margarita", "valen@hotmail", "12.212.212-21",
 				"(41)3032-2120", "(41)9798-9695", "Rua rei ragnar", "80.800-000", "123456", new Date(),
 				"S");
 
@@ -32,7 +30,7 @@ public class UserWSTest {
 		System.out.println("Usuario convertido em JSON");
 		System.out.println(tUserJson1);
 
-		User user2 = new User("102.002.002-02","Miguel", "Valadares", "miguel@gmail.com", "12.222.111-00", 
+		User user2 = new User("102.002.002-02","Miguel", "Valadares", "miguel@gmail.com", "12.222.111-00",
 				"(41)3434-3131", "(41)97955997", "Rua juscelino", "80.080-090", "123456", new Date(),
 				"S");
 
@@ -42,7 +40,7 @@ public class UserWSTest {
 		System.out.println(tUserJson2);
 
 		// Criando DAO
-		
+
 		try {
 
 			HibernateUtil.iniciarTransacao();

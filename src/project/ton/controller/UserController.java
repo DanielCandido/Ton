@@ -1,6 +1,7 @@
 package project.ton.controller;
 
 
+import java.util.Date;
 import java.util.List;
 
 import project.ton.dao.hibernate.DaoFactory;
@@ -53,9 +54,10 @@ public class UserController {
 	        User tUser = tDaoUser.recoveryUser(pUser.getEmailUser());
 	        if (tUser != null)
 	            return new UserDTO(false, "ja existe usuario cadastrado com esse email");
-
-	        /*tUser.setRegisterDate(new Date());*/
 	        // Inserindo o User
+	        
+	        pUser.setRegisterDate(new Date());
+	        System.out.println("Chegou isso: " +pUser);
 	        tUser = tDaoUser.createUser(pUser);
 
 	        // Verificando se houve erro de criaÃ§Ã£o
@@ -64,6 +66,7 @@ public class UserController {
 
 	        // Retornando o indicativo de sucesso com o objeto cadastrado
 	        return new UserDTO(true, "Usuario cadastrado com sucesso", tUser);
+	        
 	    }
 	 
 	  public UserDTO recuperar(String pCpf)

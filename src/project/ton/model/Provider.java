@@ -2,18 +2,11 @@ package project.ton.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="SERVICE_PROVIDER", schema="DanielDB")
-@SequenceGenerator(name="IDPROVIDER_SEQ", sequenceName="IDPROVIDER_SEQ")
+@Table(name="SERVICE_PROVIDER", schema="DanielCandido")
 public class Provider {
 
 	@Id
@@ -25,19 +18,13 @@ public class Provider {
 	private int category;
 	@Column(name="SUBCATEGORY")
 	private String subcategory;
-	@Column(name="TIME_OPEN")
-	private String timeOpen;
-	@Column(name="TIME_CLOSE")
-	private String timeClose;
 
-	public Provider(String pId, String pName, int pCategory, String pSubcategory, String pTimeOpen, String pTimeClose ){
+	public Provider(String pId, String pName, int pCategory, String pSubcategory ){
 		super();
 		setIdProvider(pId);
 		setNameProvider(pName);
 		setCategory(pCategory);
 		setSubcategory(pSubcategory);
-		setTimeOpen(pTimeOpen);
-		setTimeClose(pTimeClose);
 	}
 
 	public Provider() {
@@ -76,22 +63,5 @@ public class Provider {
 		this.subcategory = subcategory;
 	}
 
-	public String getTimeOpen() {
-		return timeOpen;
-	}
 
-	public void setTimeOpen(String timeOpen) {
-		this.timeOpen = timeOpen;
-	}
-
-	public String getTimeClose() {
-		return timeClose;
-	}
-
-	public void setTimeClose(String timeClose) {
-		this.timeClose = timeClose;
-	}
-
-
-	
 }

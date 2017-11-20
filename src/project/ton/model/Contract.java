@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import project.ton.enums.ContractSituation;
 
 @Entity()
-@Table(name="CONTRACT", schema="DanielDB")
+@Table(name="CONTRACT", schema="DanielCandido")
 public class Contract implements Comparable<Contract>{
 
 	@Id()
@@ -33,11 +33,11 @@ public class Contract implements Comparable<Contract>{
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name="STATUS_CONTRACT")
 	private ContractSituation contractSituation;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ID_PROVIDER_CONTRACT", referencedColumnName="ID_PROVIDER",nullable = false)
+	@JoinColumn(name="ID_PROVIDER_CONTRACT", referencedColumnName="ID_SERVICE_PROVIDER",nullable = false)
 	private Provider provider;
-	
+
 	public Contract(int pIdContract, Date pDateContract, ContractSituation pContractSituation, Provider pProvider){
 		super();
 		setIdContract(pIdContract);
@@ -68,7 +68,7 @@ public class Contract implements Comparable<Contract>{
 	public void setContractSituation(ContractSituation contractSituation) {
 		this.contractSituation = contractSituation;
 	}
-	
+
 
 	public Provider getProvider() {
 		return provider;

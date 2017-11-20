@@ -28,6 +28,8 @@
 		</h:form>
 		</div>	
 	<div style="text-align: center">
+		
+		
 		<h:form >
 			<br/>
 			<div >
@@ -36,60 +38,65 @@
 			
 			<div style="display: inline-block;">
 				<p:outputLabel value="Nome" /><br/>
-				<p:inputText id="nomePessoa" value="#{userBean.user.firstNameUser}" /><br/><br/>	
+				<p:inputText id="nomePessoa" value="#{userBean.userSelect.firstNameUser}" required="false" validatorMessage="Campo 'NOME' é obrigatório">
+					<f:validateRequired validatorMessage="*Campo nome é obrigatorio" />
+				</p:inputText><br/><br/>	
 				<p:outputLabel value="Sobrenome"/><br/>
-				<p:inputText id="sobrenomePessoa" value="#{userBean.user.lastNameUser}" /><br/><br/>
+				<p:inputText id="sobrenomePessoa" value="#{userBean.userSelect.lastNameUser}" required="false" validatorMessage="Campo 'SOBRENOME' obrigatorio">
+					<f:validateRequired validatorMessage="*Campo sobrenome é obrigatorio" />
+				</p:inputText><br/><br/>
 				<p:outputLabel value="Email"/><br/>
-				<p:inputText id="emailPessoa" value="#{userBean.user.emailUser}"/><br/><br/>
+				<p:inputText id="emailPessoa" value="#{userBean.userSelect.emailUser}" required="false" validatorMessage="Campo 'EMAIL' é obrigatório">
+					<f:validateRequired validatorMessage="*Campo email é obrigatorio" />
+				</p:inputText><br/><br/>
 				<p:outputLabel value="RG" /><br/>
-				<p:inputMask  id="rgPessoa" value="#{userBean.user.rgUser}" maxlength="10">
-					<p:keyFilter regEx="/[0-9_]/i" />
+				<p:inputMask  id="rgPessoa" value="#{userBean.userSelect.rgUser}" maxlength="10" required="false" validatorMessage="Campo RG é Obrigatório">
+					<p:keyFilter regEx="/[0-9_]/i" validatorMessage="Campo 'RG' é obrigatório" />
 				</p:inputMask><br/><br/>
 				<p:outputLabel value="CPF" /><br/>
-				<p:inputMask mask="999.999.999-99" id="cpfPessoa" value="#{userBean.user.cpfUser}" /><br/><br/>
+				<p:inputMask id="cpfPessoa" value="#{userBean.userSelect.cpfUser}" maxlength="10" required="false" validatorMessage="Campo 'CPF' é obrigatório">
+					<p:keyFilter regEx="/[0-9_]/i" validatorMessage="Campo 'CPF' é obrigatório" />
+				</p:inputMask><br/><br/>
 				
 			</div>
 			
 			<div style="display: inline-block; vertical-align: top">
 				
 				<p:outputLabel value="Celular" /><br/>
-				<p:inputMask mask="(99) 9999-9999" id="celularPessoa" value="#{userBean.user.cellPhoneUser}" /><br/><br/>
+				<p:inputMask mask="(99) 9999-9999" id="celularPessoa" value="#{userBean.userSelect.cellPhoneUser}"  required="false" validatorMessage="Campo 'CELULAR' é obrigatório">
+					<f:validateRequired validatorMessage="*Campo celular é obrigatorio" />
+				</p:inputMask><br/><br/>
 				<p:outputLabel value="Telefone"/><br/>
-				<p:inputMask mask="(99) 9999-9999" id="telefonePessoa" value="#{userBean.user.phoneUser}"/><br/><br/>
+				<p:inputMask mask="(99) 9999-9999" id="telefonePessoa" value="#{userBean.userSelect.phoneUser}" requiredMessage="Campo telefone obrigatorio"/><br/><br/>
 				<p:outputLabel value="CEP" /><br/>
-				<p:inputMask mask="99.999-999" id="cepPessoa" value="#{userBean.user.cepUser}" /><br/><br/>
+				<p:inputMask mask="99.999-999" id="cepPessoa" value="#{userBean.userSelect.cepUser}" required="false" validatorMessage="Campo 'CEP' é obrigatório" /><br/><br/>
 				<p:outputLabel value="Endereco"/><br/>
-				<p:inputText id="enderecoPessoa" value="#{userBean.user.adressUser}"/><br/><br/>
+				<p:inputText id="enderecoPessoa" value="#{userBean.userSelect.adressUser}" required="false" validatorMessage="Campo 'ENDEREÇO' é obrigatório">
+					<f:validateRequired validatorMessage="*Campo nome é obrigatorio" />
+				</p:inputText><br/><br/>
 				<p:outputLabel value="Senha"/><br/>
-				<p:password id="passwordPessoa" value="#{userBean.user.passwordUser}"/><br/><br/>
+				<p:password id="passwordPessoa" value="#{userBean.userSelect.passwordUser}" required="false" validatorMessage="Campo 'SENHA' é obrigatório"/><br/><br/>
 				<p:outputLabel value="Deseja ser um prestador?"/><br/>
-				<p:selectOneRadio value ="#{userBean.user.situation}"
-					required="true" requiredMessage="Campo obrigatório">
+				<p:selectOneRadio value ="#{userBean.userSelect.situation}"
+					required="true" requiredMessage="Campo 'PRESTADOR' é obrigatório">
 					<f:selectItem  itemLabel="Sim" itemValue="true"/>
 					<f:selectItem itemLabel="Não" itemValue="false"/>
 					<f:ajax event="click" render="prestadorCadastro"/>
-					
 				</p:selectOneRadio>
 				
 				<h:panelGroup action="#{providerBean.registerProvider()}" id="prestadorCadastro" style="margin-botton:10px" columns="2">
-					<h:panelGrid rendered="#{userBean.user.situation}" style="text-align:center">
+					<h:panelGrid rendered="#{userBean.userSelect.situation}" style="text-align:center">
 					<p:outputLabel value="Qual tipo de serviço fornece?"/>
-					<p:selectOneMenu style="width:190px;" id="category" value="#{providerBean.provider.subcategory}">
+					<p:selectOneMenu style="width:190px;" id="category">
 						<f:selectItem itemLabel="Selecione"/>
-						<f:selectItem />
+						<f:selectItems value="#{categoryBean.listCategory}" var="provider" itemLabel="#{categoryBean.category.nameCategory}" itemValue="#{categoryBean.category}"/>
 					</p:selectOneMenu><br/>
-					<p:outputLabel value="Horário abertura"/>
-					<p:inputMask id="abertura" mask="99:99 hrs" value="#{providerBean.provider.timeOpen}"/><br/>
-					<p:outputLabel value="Horário fechamento"/>
-					<p:inputMask id="fechamento" mask="99:99 hrs" value="#{providerBean.provider.timeClose}"/><br/>	
 					</h:panelGrid>
 				</h:panelGroup>	
-
+			<p:commandButton id="cadastrar" value="Casdastrar" action="#{userBean.saveUser}"/>
 			</div>
 			</h:form>
 				
-					<br/><br/>
-				<p:commandButton id="cadastrar" value="Casdastrar" action="#{userBean.registerUser()}"/>
 			</div>
 			
 </h:body> 
