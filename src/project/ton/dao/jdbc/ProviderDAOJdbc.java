@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
 import project.ton.dao.i.ProviderDAO;
 import project.ton.model.Provider;
 import project.ton.util.ExceptionUtil;
@@ -14,12 +17,14 @@ import project.ton.util.ExceptionUtil;
 public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDAO{
 	
 	private static String tabela = "SERVICE_PROVIDER";
-	private static String campos = "ID_SERVICE_PROVIDER,NAME_PROVIDER,CATEGORY,SUBCATEGORY";
+	private static String campos = "ID_SERVICE_PROVIDER,NAME_PROVIDER,CATEGORY,DESCRICAO,SITUACAO";
 	
 	public ProviderDAOJdbc(){
 		
 	}
 	
+	@Inject
+	private EntityManager manager;
 	Connection myConnection = null;
 	private Provider provider;
 	
@@ -32,7 +37,7 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 			AcessDAO acess = new AcessDAO();
 			
 			myConnection = acess.openConnection();
-			String sqlRegister = "INSERT INTO"+ tabela + " (" + campos + ") VALUES (?,?,?,?)";
+			String sqlRegister = "INSERT INTO"+ tabela + " (" + campos + ") VALUES (?,?,?,?,?)";
 			System.out.println(sqlRegister);
 			PreparedStatement pstm = myConnection.prepareStatement(sqlRegister);
 			
@@ -41,6 +46,7 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 			pstm.setString(i++, provider.getNameProvider());
 			pstm.setInt(i++, provider.getCategory());
 			pstm.setString(i++, provider.getSubcategory());
+			pstm.setString(i++, provider.getSituacao());
 			
 			pstm.executeQuery();
 			
@@ -65,7 +71,7 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 			AcessDAO acess = new AcessDAO();
 			myConnection = acess.openConnection();
 			
-			String sqlsearch = "SELECT * from " + tabela;
+			String sqlsearch = "SELECT * from " + tabela + " WHERE SITUACAO = 'aprovado'";
 			System.out.println(sqlsearch);
 			PreparedStatement pstm = myConnection.prepareStatement(sqlsearch);
 			
@@ -77,8 +83,7 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 	            Provider tObjeto = new Provider();
 	            
 	            tObjeto.setNameProvider(rs.getString("NAME_PROVIDER"));
-	            tObjeto.setCategory(rs.getInt("CATEGORY"));
-	            tObjeto.setSubcategory(rs.getString("SUBCATEGORY"));
+	            tObjeto.setSubcategory(rs.getString("DESCRICAO"));
 
 	            // Adicionando o objeto na lista
 	            tlist.add(tObjeto);
@@ -96,18 +101,16 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 	@Override
 	public List<Provider> searchByName(String nome){
 		
-		
 		List<Provider> tlist = new ArrayList<>();
 		
-		
-		try
-		{
+		try {
+			
 			AcessDAO acess = new AcessDAO();
 			myConnection = acess.openConnection();
 			
-			String sqlsearch = "SELECT * from " + tabela + " WHERE NAME_PROVIDER LIKE '%" +nome+"%'";
-			System.out.println(sqlsearch);
-			PreparedStatement pstm = myConnection.prepareStatement(sqlsearch);
+			String sqlSearch = "SELECT * FROM SERVICE_PROVIDER WHERE NAME_PROVIDER = '%"+nome+"%'";
+			
+			PreparedStatement pstm = myConnection.prepareStatement(sqlSearch);
 			
 			ResultSet rs = pstm.executeQuery();
 			
@@ -117,8 +120,7 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 	            Provider tObjeto = new Provider();
 	            
 	            tObjeto.setNameProvider(rs.getString("NAME_PROVIDER"));
-	            tObjeto.setCategory(rs.getInt("CATEGORY"));
-	            tObjeto.setSubcategory(rs.getString("SUBCATEGORY"));
+	            tObjeto.setSubcategory(rs.getString("DESCRICAO"));
 
 	            // Adicionando o objeto na lista
 	            tlist.add(tObjeto);
@@ -130,6 +132,7 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 			ExceptionUtil.mostrarErro(e, "Erro na recuperação da lista");
 		}
 		return tlist;
+		
 	}
 	
 	@Override
@@ -161,7 +164,6 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 		Provider tProvider = new Provider();
 		
 		tProvider.setNameProvider(tResultSet.getString("NAME_PROVIDER"));
-		tProvider.setCategory(tResultSet.getInt("CATEGORY"));
 		tProvider.setSubcategory(tResultSet.getString("SUBCATEGORY"));
 		return null;
 	}

@@ -13,5 +13,14 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Daniel Candido/Downloads/JasperReport/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Daniel Candido/Downloads/JasperReport/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Daniel Candido/Downloads/JasperReport/commons-digester-1.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Daniel Candido/Downloads/JasperReport/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Daniel Candido/Downloads/JasperReport/groovy-all-1.5.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Daniel Candido/Downloads/JasperReport/itext-2.1.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Daniel Candido/Downloads/JasperReport/jasperreports-5.5.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Daniel Candido/Downloads/JasperReport/poi-3.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Daniel Candido/Downloads/JasperReport/servlet-api-2.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

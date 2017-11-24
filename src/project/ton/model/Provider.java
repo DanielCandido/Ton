@@ -16,15 +16,18 @@ public class Provider {
 	private String nameProvider;
 	@Column(name="CATEGORY")
 	private int category;
-	@Column(name="SUBCATEGORY")
+	@Column(name="DESCRICAO")
 	private String subcategory;
-
-	public Provider(String pId, String pName, int pCategory, String pSubcategory ){
+	@Column(name="SITUACAO")
+	private String situacao;
+	
+	public Provider(String pId, String pName, int pCategory, String pSubcategory, String pSituacao){
 		super();
 		setIdProvider(pId);
 		setNameProvider(pName);
 		setCategory(pCategory);
 		setSubcategory(pSubcategory);
+		setSituacao(pSituacao);
 	}
 
 	public Provider() {
@@ -63,5 +66,14 @@ public class Provider {
 		this.subcategory = subcategory;
 	}
 
+	public String getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
+
+	
 
 }

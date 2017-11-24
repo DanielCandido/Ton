@@ -3,8 +3,6 @@
   <display-name>TON_WS</display-name>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.html</welcome-file>
   </welcome-file-list>
   <filter>
     <filter-name>FiltroHibernate</filter-name>

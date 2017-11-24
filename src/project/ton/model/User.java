@@ -15,10 +15,7 @@ import javax.persistence.Table;
 @Table(name="USERS", schema="DanielCandido")
 public class User implements Comparable<User>{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)	
-	@Column(name="CPF_USER", nullable = false)
+	@Column(name="CPF_USER")
 	private String cpfUser;
 
 	@Column(name="FIRSTNAME_USER")
@@ -51,28 +48,23 @@ public class User implements Comparable<User>{
 	@Column(name="REGISTER_DATE")
 	private Date registerDate;
 
-	@Column(name="PROVIDER")
-	private boolean situation;
-
-
 
 	public User(String pCpfUser,String pFirstNameUser, String pLastNameUser, String pEmailUser, String pRgUser,
 			 String pPhoneUser, String pCellPhoneUser, String pAdressuser, String pCepUser, String pPasswordUser,
-			Date pRegisterDate, boolean pSituation)
+			Date pRegisterDate)
 	{
 		super();
+		setCpfUser(pCpfUser);
 		setFirstNameUser(pFirstNameUser);
 		setLastNameUser(pLastNameUser);
 		setEmailUser(pEmailUser);
 		setRgUser(pRgUser);
-		setCpfUser(pCpfUser);
 		setPhoneUser(pPhoneUser);
 		setCellPhoneUser(pCellPhoneUser);
 		setAdressUser(pAdressuser);
 		setCepUser(pCepUser);
 		setPasswordUser(pPasswordUser);
 		setRegisterDate(pRegisterDate);
-		setSituation(situation);
 	}
 
 	public User() {
@@ -113,12 +105,13 @@ public class User implements Comparable<User>{
 
 
 
+
 	public String getCpfUser() {
 		return cpfUser;
 	}
 
-	public void setCpfUser(String i) {
-		this.cpfUser = null;
+	public void setCpfUser(String cpfUser) {
+		this.cpfUser = cpfUser;
 	}
 
 	public String getPhoneUser() {
@@ -170,14 +163,6 @@ public class User implements Comparable<User>{
 	}
 
 
-	public boolean isSituation() {
-		return situation;
-	}
-
-	public void setSituation(boolean situation) {
-		this.situation = situation;
-	}
-
 	/*public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
@@ -194,15 +179,13 @@ public class User implements Comparable<User>{
     {
         StringBuilder tBuilder = new StringBuilder();
         tBuilder.append("Users [");
+        tBuilder.append(getCpfUser());
+        tBuilder.append(", ");
         tBuilder.append(getFirstNameUser());
         tBuilder.append(", ");
         tBuilder.append(getLastNameUser());
         tBuilder.append(", ");
         tBuilder.append(getEmailUser());
-        tBuilder.append(", ");
-        tBuilder.append(getRgUser());
-        tBuilder.append(", ");
-        tBuilder.append(getCpfUser());
         tBuilder.append(", ");
         tBuilder.append(getRgUser());
         tBuilder.append(", ");
@@ -217,8 +200,6 @@ public class User implements Comparable<User>{
         tBuilder.append(getPasswordUser());
         tBuilder.append(", ");
         tBuilder.append(getRegisterDate());
-        tBuilder.append(", ");
-        tBuilder.append(isSituation());
         tBuilder.append("]");
         return tBuilder.toString();
     }

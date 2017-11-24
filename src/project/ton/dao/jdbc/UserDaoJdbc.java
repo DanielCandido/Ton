@@ -15,12 +15,12 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 
 	private static String sTabela = "USERS";
 	private static String sCampos1 = "CPF_USER, FIRSTNAME_USER, LASTNAME_USER, EMAIL_USER, RG_USER,"
-			+ " PHONE_USER, CELLPHONE_USER, ADRESS_USER, CEP_USER, PASSWORD_USER, REGISTER_DATE, PROVIDER";
+			+ " PHONE_USER, CELLPHONE_USER, ADRESS_USER, CEP_USER, PASSWORD_USER, REGISTER_DATE";
 
 	private static String sCampos4 = "FIRSTNAME_USER, LASTNAME_USER, EMAIL_USER, PHONE_USER,"
 			+ " CELLPHONE_USER, ADRESS_USER, CEP_USER, PASSWORD_USER, REGISTER_DATE";
 	private static String sCampos5 = "FIRSTNAME_USER = ?, LASTNAME_USER = ?, EMAIL_USER = ?, PHONE_USER = ?,"
-			+ " CELLPHONE_USER = ?, ADRESS_USER = ?, CEP_USER = ?, PASSWORD_USER = ?, PROVIDER = ?";
+			+ " CELLPHONE_USER = ?, ADRESS_USER = ?, CEP_USER = ?, PASSWORD_USER = ?";
 	private static String sCampos2 = sCampos1.replaceAll(",", " = ?,") + " = ?";
 	private static String sCampos3 = sCampos2.replaceAll("[A-Z_]+ =", "");
 	private static String sOrdem = "ORDER BY UPPER(FIRSTNAME_USER)";
@@ -42,7 +42,7 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 
 			myConnection = acessoDAO.openConnection();
 			// Criando o comando SQL e o comando JDBC
-			String sqlRegister = "INSERT INTO " + sTabela + " (" + sCampos1 + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sqlRegister = "INSERT INTO " + sTabela + " (" + sCampos1 + ") VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 			System.out.println(sqlRegister);
 			PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlRegister);
 
@@ -59,7 +59,6 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 			tComandoJDBC.setString(i++, pUser.getCepUser());
 			tComandoJDBC.setString(i++, pUser.getPasswordUser());
 			tComandoJDBC.setDate(i++, new java.sql.Date(pUser.getRegisterDate().getTime()));
-			tComandoJDBC.setBoolean(i++, pUser.isSituation());
 			// executando o comando de gravaÁ„o
 			
 			System.out.println("Na dao chegou isso: " + pUser);
@@ -392,7 +391,6 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 			tComandoJDBC.setString(i++, pUser.getAdressUser());
 			tComandoJDBC.setString(i++, pUser.getCepUser());
 			tComandoJDBC.setString(i++, pUser.getPasswordUser());
-			tComandoJDBC.setBoolean(i++, pUser.isSituation());
 			tComandoJDBC.setString(i++, pUser.getEmailUser());
 
 			// Executando o comando de regrava√ß√£o e salvando o n√∫mero de
@@ -415,6 +413,40 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 		return tObjeto;
 	}
 
+	public boolean loginUser(String emailLogin, String senhaLogin) {
+		boolean result = false;
+
+		try {
+			AcessDAO acessoDAO = new AcessDAO();
+			myConnection = acessoDAO.openConnection();
+			PreparedStatement pstm = myConnection
+					.prepareStatement("SELECT EMAIL_USER, PASSWORD_USER FROM USERS WHERE EMAIL_USER = ? AND PASSWORD_USER = ?");
+			pstm.setString(1, emailLogin);
+			pstm.setString(2, senhaLogin);
+
+			ResultSet retorno = pstm.executeQuery();
+
+			if (retorno.next()) {
+				System.out.println("Usuario encontrado" + emailLogin);
+				result = true;
+			}
+
+			// Liberando os recursos JDBC
+			pstm.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (myConnection != null && !myConnection.isClosed())
+					myConnection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
 	@Override
 	protected User loadingObject(ResultSet tResultSet) throws SQLException {
 		// TODO Auto-generated method stub

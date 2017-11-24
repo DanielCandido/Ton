@@ -49,6 +49,8 @@ public class UserController {
 
 	        // Criando os objetos DAO
 	        UserDAO tDaoUser = DaoFactory.getUserDAO();
+	        
+	        MailController mail = new MailController();
 
 	        // Verificando se o User jÃ¡ estÃ¡ cadastrado
 	        User tUser = tDaoUser.recoveryUser(pUser.getEmailUser());
@@ -57,7 +59,7 @@ public class UserController {
 	        // Inserindo o User
 	        
 	        pUser.setRegisterDate(new Date());
-	        System.out.println("Chegou isso: " +pUser);
+	        System.out.println("Chegou isso: " + pUser);
 	        tUser = tDaoUser.createUser(pUser);
 
 	        // Verificando se houve erro de criaÃ§Ã£o
@@ -65,7 +67,10 @@ public class UserController {
 	            return new UserDTO(false, "Problemas na grava��o do usuario");
 
 	        // Retornando o indicativo de sucesso com o objeto cadastrado
+	        String mensagem = "<h1>Ol� " + tUser.getFirstNameUser() + ", Bem vindo ao ton";
+	        mail.sendMail(tUser.getEmailUser(), mensagem);
 	        return new UserDTO(true, "Usuario cadastrado com sucesso", tUser);
+	        	
 	        
 	    }
 	 

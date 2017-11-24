@@ -13,6 +13,6 @@ public interface CategoryDAO {
 
     public abstract boolean deleteCategory(int id);
 
-    public abstract List<Category> search();
+    public abstract List<String> search();
 
 }

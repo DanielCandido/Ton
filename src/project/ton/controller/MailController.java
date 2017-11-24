@@ -2,7 +2,6 @@ package project.ton.controller;
 
 import java.util.Properties;
 
-import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -11,51 +10,68 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 
 public class MailController
 {
 
     public MailController() {
+    	
+	}
+	
+	public boolean sendMail(String to, String messageBody) {
+		try
+        {
+            String server = "smtp.gmail.com";
+            String port = "465";
+            
+            //email
+            String user = "danielfcandido18@gmail.com";
+            String password = "eusoumaiseu";
 
-    }
+            Properties properties = new Properties();
+            properties.put("mail.smtp.host", server);
+            properties.put("mail.smtp.port", port);
+            properties.put("mail.smtp.user", user);
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.smtp.debug", "true");
+            properties.put("mail.smtp.socketFactory.port", port);
+            properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+            properties.put("mail.smtp.socketFactory.fallback", "false");
 
-    public static void main(String[] args) {
-        Properties props = new Properties();
-        /** Parâmetros de conexão com servidor Gmail */
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
+            Session session = Session.getInstance(properties, new Autenticador(user, password));
+            Message message = new MimeMessage(session);
 
-        Session session = Session.getDefaultInstance(props,
-                    new javax.mail.Authenticator() {
-                         protected PasswordAuthentication getPasswordAuthentication() 
-                         {
-                               return new PasswordAuthentication("danielfcandido18@gmail.com", "eusoumaiseu");
-                         }
-                    });
-        /** Ativa Debug para sessão */
-        session.setDebug(true);
-        try {
-
-              Message message = new MimeMessage(session);
-              message.setFrom(new InternetAddress("danielfcandido18@gmail.com")); //Remetente
-
-              Address[] toUser = InternetAddress //Destinatário(s)
-                         .parse("danielfelipec18@hotmail.com");  
-              message.setRecipients(Message.RecipientType.TO, toUser);
-              message.setSubject("Enviando email com JavaMail");//Assunto
-              message.setText("Enviei este email utilizando JavaMail com minha conta GMail!");
-              /**Método para enviar a mensagem criada*/
-              Transport.send(message);
-              System.out.println("Feito!!!");
-         } catch (MessagingException e) {
-              throw new RuntimeException(e);
+            message.setFrom(new InternetAddress(user));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject("TON divulga");
+            message.setContent(messageBody, "text/html");
+            
+            Transport.send(message);
+            
+            return true;
         }
-  }
+        catch (MessagingException tExcept)
+        {
+            System.out.println("Erro no processo de envio do email....");
+            throw new RuntimeException(tExcept);
+        }
+	}
+	
+    private static class Autenticador extends Authenticator {
+        private String mUsuario;
+        private String mSenha;
+
+        public Autenticador(String pUsuario, String pSenha)
+        {
+            super();
+            mUsuario = pUsuario;
+            mSenha = pSenha;
+        }
+
+        @Override
+        protected PasswordAuthentication getPasswordAuthentication()
+        {
+            return new PasswordAuthentication(mUsuario, mSenha);
+        }
+    }
 }

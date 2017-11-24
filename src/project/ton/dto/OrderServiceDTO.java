@@ -31,7 +31,11 @@ public class OrderServiceDTO extends AbstractDto<OrderService> {
 	    }
 
 
-	   /* metodos de acesso*/
+	   public OrderServiceDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/* metodos de acesso*/
 	   public OrderService getOrderService()
 	    {
 	        return order;
@@ -51,5 +55,7 @@ public class OrderServiceDTO extends AbstractDto<OrderService> {
 	    {
 	        list = pList;
 	    }
+	    
+	    
 
 }

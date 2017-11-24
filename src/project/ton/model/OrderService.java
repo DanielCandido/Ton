@@ -4,15 +4,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import project.ton.enums.OrderServiceSituation;
 @Entity()
 @Table(name="ORDER_SERVICE", schema="DanielCandido")
 public class OrderService {
@@ -28,13 +24,12 @@ public class OrderService {
 	private Date dateOrder;
 	@Column(name="CEP_ORDER")
 	private String cepOrder;
-	@Enumerated(EnumType.ORDINAL)
     @Column(name="STATUS_ORDER")
-	private OrderServiceSituation situation;
+	private String situation;
 	@Column(name="USER_ID_USER")
 	private String userId;
 
-	public OrderService(int pIdOrder, String pProvider,Date pDateOrder,String cepOrder,OrderServiceSituation pOrderSituation, String pUserID)
+	public OrderService(int pIdOrder, String pProvider,Date pDateOrder,String cepOrder,String pOrderSituation, String pUserID)
 	{
 	    super();
 	    setIdOrder(pIdOrder);
@@ -91,13 +86,15 @@ public class OrderService {
 	public void setCepOrder(String cepOrder) {
 		this.cepOrder = cepOrder;
 	}
-	public OrderServiceSituation getSituation() {
+
+
+	public String getSituation() {
 		return situation;
 	}
-	public void setSituation(OrderServiceSituation situation) {
+
+
+	public void setSituation(String situation) {
 		this.situation = situation;
 	}
-
-
 
 }

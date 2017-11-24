@@ -15,7 +15,7 @@ public class CategoryController {
 	        CategoryDAO tCategory = DaoFactory.getCategoryDAO();
 
 	        // Obtendo a lista de Users
-	        List<Category> tLista = tCategory.search();
+	        List<String> tLista = tCategory.search();
 
 	        // Retornando a lista obtida
 	        return new CategoryDTO(true, "Lista de Usuarios recuperada", tLista);

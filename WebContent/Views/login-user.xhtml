@@ -5,8 +5,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"> 
 
-<h:head></h:head> 
-<body> 
+<h:head>
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<title>Login Usuario</title>
+</h:head> 
+<h:body> 
+	<div style="border-color: black; width: 10px; height:40px; text-align: center;">
+			<p:graphicImage value="/Views/Images/vaai.png" style="heigth:120px; width:80px;"/>		
+		</div>
+	
+	<div style="text-align: center">
 		<h:form>
 		<p:messages id="messages" showDetail="false" autoUpdate="true"
 			closable="true" />
@@ -14,6 +22,9 @@
 		<p:panelGrid >
 			<br />
 			<br />
+			<p:outputLabel value="Email"/>
+			
+			<br/><br/>
 			<p:inputText  id="emailusuario" required="false"
 				validatorMessage="Email invalido"
 				value="#{userBean.emailLogin}" style="border:3px">
@@ -21,13 +32,16 @@
 				</p:inputText>
 			<br />
 			<br />
+			<p:outputLabel value="Senha"/>
+			
+			<br/><br/>
 			<p:password id="senhausuario" required="false"
 				validatorMessage="Senha invalida"
 				value="#{userBean.senhaLogin}">
 				<f:validateRequired validatorMessage="Senha invalida"/>
 				</p:password>
 			<br />
-
+		</p:panelGrid>
 
 			<p:commandLink id="ircadastro" action="cadastro-usuario"
 				value="Cadastre-se" />
@@ -35,10 +49,8 @@
 			<br />
 			<p:commandButton id="fazerlogin" action="#{userBean.fazerLogin()}"
 				value="Entrar" />
-				
-			<p:button href="/View/HomePage.jsf" value="INICIO"
-			style="border:5px;margin-left:15px;" />
-		</p:panelGrid>
-	</h:form>
-</body> 
+		
+		</h:form>
+	</div>
+</h:body> 
 </html>

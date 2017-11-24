@@ -7,12 +7,23 @@
 
 <h:head>
 	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<title>Pagina Inicial</title>
+		<p:separator ></p:separator>
+		
 </h:head> 
-<body > 
+<h:body style="font:fantasy; ; font-size: 10px;"> 
 	
-	<br/>
-	<form style="width: 600px; text-align: center; ">
-	<p:dataTable value="#{providerBean.list}" var="provider" emptyMessage="Nenhum Registro Encontrado">
+	<h:form style="width: 600px; text-align: center; ">
+	
+	<div style="margin-top: 5px; margin-bottom: 20px;">
+		<p:inputText id="nome" size="40" value="#{providerBean.nome}" placeholder="Nome do prestador"/>
+		<p:spacer width="10px"/>
+		<p:commandButton icon="ui-icon-search" action="#{providerBean.pesquisarNome()}" update="@form"/>
+		
+	</div>
+
+	<p:dataTable value="#{providerBean.list}" var="provider" emptyMessage="Nenhum Registro Encontrado"
+	rows="8" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
 	<f:facet name="header">Listagem de serviços</f:facet>
 		<p:column>
 			<f:facet name="header">Nome Serviço</f:facet>
@@ -24,10 +35,11 @@
 		</p:column>	
 		<p:column>
 			<f:facet name="header">Visualizar</f:facet>
-			<p:button icon="fa fa-search" aria-hidden="true" value="">
-			</p:button>
+			<p:commandButton icon="ui-icon-search" action="#{providerBean.ProviderSelect(provider)}" process="@this">
+				<f:setPropertyActionListener value="#{provider}" target="#{providerBean.providerSelecionado}"></f:setPropertyActionListener>
+			</p:commandButton>
 		</p:column>
 	</p:dataTable>
-	</form>
-</body> 
+	</h:form>
+</h:body> 
 </html>

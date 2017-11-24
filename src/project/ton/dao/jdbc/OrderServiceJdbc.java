@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.ton.dao.i.OrderServiceDAO;
-import project.ton.enums.OrderServiceSituation;
 import project.ton.model.OrderService;
 import project.ton.util.ExceptionUtil;
 
@@ -206,7 +205,7 @@ public class OrderServiceJdbc extends AbstractDAO<OrderService> implements Order
 		tOrder.setIdOrder(tResultSet.getInt("ID_ORDER"));
 		tOrder.setDateOrder(tResultSet.getDate("DATE_ORDER"));
 		tOrder.setCepOrder(tResultSet.getString("CEP_ORDER"));
-		tOrder.setSituation(OrderServiceSituation.fromChar(tResultSet.getString("STATUS_ORDER").charAt(0)));
+		tOrder.setSituation(tResultSet.getString("STATUS_ORDER"));
 		return null;
 	}
 

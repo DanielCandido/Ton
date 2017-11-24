@@ -4,23 +4,36 @@ import java.util.List;
 
 import project.ton.model.Category;
 
-public class CategoryDTO extends AbstractDto<Category>{
+public class CategoryDTO {
 
+	private boolean ok;
+	private String mensagem;
 	private Category category;
-	private List<Category> list;
+	private List<String> list;
 	
 
 	public CategoryDTO(boolean pOK, String pMensagem) {
-		super(pOK, pMensagem);
+		super();
+		ok = pOK;
+		mensagem = pMensagem;
 	}
 
 	public CategoryDTO(boolean pOK, String pMensagem, Category pCategory) {
-		super(pOK, pMensagem);
+		super();
+		ok = pOK;
+		mensagem = pMensagem;
+		category = pCategory;
 	}
-	   public CategoryDTO(boolean pOk, String pMensagem, List<Category> pList)
+	   public CategoryDTO(boolean pOk, String pMensagem, List<String> pList)
 	    {
-	      super (pOk,pMensagem,pList);
+	      super();
+	      ok = pOk;
+	      mensagem = pMensagem;
+	      list = pList;
+	      
 	    }
+	   
+	   
 
 
 	   /* metodos de acesso*/
@@ -34,13 +47,31 @@ public class CategoryDTO extends AbstractDto<Category>{
 	       category = pCategory;
 	    }
 
-	    public List<Category> getList()
-	    {
-	        return list;
-	    }
+	
+	
 
-	    public void setList(List<Category> pList)
-	    {
-	        list = pList;
-	    }
+		public String getMensagem() {
+			return mensagem;
+		}
+
+		public void setMensagem(String mensagem) {
+			this.mensagem = mensagem;
+		}
+
+		public List<String> getList() {
+			return list;
+		}
+
+		public void setList(List<String> list) {
+			this.list = list;
+		}
+
+		public boolean isOk() {
+			return ok;
+		}
+
+		public void setOk(boolean ok) {
+			this.ok = ok;
+		}
+	    
 }

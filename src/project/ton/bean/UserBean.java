@@ -9,8 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import project.ton.controller.UserController;
-import project.ton.dao.hibernate.UserDAOHibernate;
-import project.ton.dao.jdbc.ProviderDAOJdbc;
+import project.ton.dao.jdbc.UserDaoJdbc;
+import project.ton.dto.UserDTO;
 import project.ton.model.Provider;
 import project.ton.model.User;
 import project.ton.util.SessionUtils;
@@ -28,7 +28,7 @@ public class UserBean implements Serializable {
 	private User userSelect = new User();
 	private Provider providerSelect = new Provider();
 	private UserController userController;
-	private UserDAOHibernate userDAO;
+	private UserDaoJdbc userDAO;
 	private String emailLogin;
 
 	private String senhaLogin;
@@ -36,34 +36,49 @@ public class UserBean implements Serializable {
 	/**
 	 * Metodo para cadastrar
 	 * @return 
+	 * @return 
 	 * 
 	 * @return
 	 */
-	public void saveUser() {		
-		UserController userRN = new UserController();
-		System.out.println("Usuario Cadastrado:  " + userSelect);
-		userRN.cadastrar(userSelect);
+	public String saveUser() {	
 		
-		if(userSelect.isSituation() == true)
-		{
-			
-			ProviderDAOJdbc pjdbc = new ProviderDAOJdbc();
-			pjdbc.create(providerSelect);
-			
+		FacesContext contexto = FacesContext.getCurrentInstance();
+		
+		UserController userRN = new UserController();
+		UserDTO userDTO = new UserDTO();
+		
+		System.out.println("Usuario Cadastrado:  " + userSelect);
+		userDTO = userRN.cadastrar(userSelect);
+		
+		if (!contexto.getMessageList().isEmpty()) {
+			return "login-user";
 		}
+		
+		if (userDTO.isOk()) {
+			userSelect = userDTO.getObjeto();
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, userDTO.getMensagem(), null));
+			userRN = new UserController();
+			
+		} else {
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, userDTO.getMensagem(), null));
+		}
+		
+		userSelect = new User();
+		return "login-user";
 	}
 	
 
 	// Metodo de login
 	public String fazerLogin() {
 
+		userDAO = new UserDaoJdbc();
 		boolean validar = userDAO.loginUser(emailLogin, senhaLogin);
 		System.out.println("Login Efetivado");
 		if (validar) {
 			System.out.println("Entrou");
 
 			HttpSession session = SessionUtils.getSession();
-			session.setAttribute("EMAIL_USER", senhaLogin);
+			session.setAttribute("EMAIL_USER", emailLogin);
 			return "home-page";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -144,6 +159,26 @@ public class UserBean implements Serializable {
 
 	public void setProviderSelect(Provider providerSelect) {
 		this.providerSelect = providerSelect;
+	}
+
+
+	public String getEmailLogin() {
+		return emailLogin;
+	}
+
+
+	public void setEmailLogin(String emailLogin) {
+		this.emailLogin = emailLogin;
+	}
+
+
+	public String getSenhaLogin() {
+		return senhaLogin;
+	}
+
+
+	public void setSenhaLogin(String senhaLogin) {
+		this.senhaLogin = senhaLogin;
 	}
 
 

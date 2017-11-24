@@ -1,5 +1,6 @@
 package project.ton.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -11,12 +12,14 @@ import project.ton.model.Category;
 
 @ManagedBean(name="categoryBean")
 @RequestScoped
-public class CategoryBean {
+public class CategoryBean implements Serializable{
 	
-	private Category category;
-	private List<Category> listCategory = null;
+	private static final long serialVersionUID = 6723241327106002097L;
+	
+	private Category categorySelecionado;
+	private List<String> listCategory = null;
 
-	public List<Category> getListCategory() 
+	public List<String> getListCategory() 
 	{
 		CategoryDAOJdbc categoryRN = new CategoryDAOJdbc();
 		if(listCategory == null){
@@ -26,15 +29,14 @@ public class CategoryBean {
 				return listCategory;
 	}
 
-	public Category getCategory() {
-		return category;
+	public Category getCategorySelecionado() {
+		return categorySelecionado;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategorySelecionado(Category categorySelecionado) {
+		this.categorySelecionado = categorySelecionado;
 	}
-	
-	
 
+	
 
 }

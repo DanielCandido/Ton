@@ -37,6 +37,7 @@ public abstract class AbstractDto<T>
         lista = pLista;
     }
 
+    
     public boolean isOk()
     {
         return ok;

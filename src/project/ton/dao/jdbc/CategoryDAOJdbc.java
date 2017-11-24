@@ -47,8 +47,8 @@ public class CategoryDAOJdbc extends AbstractDAO<Category> implements CategoryDA
 	}
 
 	@Override
-	public List<Category> search() {
-		List<Category> list = new ArrayList<Category>();
+	public List<String> search() {
+		List<String> list = new ArrayList<>();
 		
 		try {
 			
@@ -64,12 +64,12 @@ public class CategoryDAOJdbc extends AbstractDAO<Category> implements CategoryDA
 			while (rs.next())
 			 {
 	            // Salvando o objeto retornado para adicionar na lista
-	            Category tObjeto = new Category();
+	            //Category tObjeto = new Category();
 	            
-	            tObjeto.setNameCategory(rs.getString("NAME_CATEGORY"));
+	            //tObjeto.setNameCategory(rs.getString("NAME_CATEGORY"));
 	            // Adicionando o objeto na lista
 	            
-	            list.add(tObjeto);
+	            list.add(rs.getString("NAME_CATEGORY"));
 	        }
 			
 		}
