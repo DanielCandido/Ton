@@ -8,7 +8,9 @@ public interface UserDAO {
 	   	
 		public abstract User createUser(User user);
 
-	    public abstract User recoveryUser(String email);
+	    public abstract User recoveryUser(String email, String cpf, String rg);
+	    
+	    public abstract User recoveryUserCpf(String cpf);
 
 	    public abstract User updateUser(String email, String senha);
 

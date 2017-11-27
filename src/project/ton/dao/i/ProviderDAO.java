@@ -7,6 +7,8 @@ import project.ton.model.Provider;
 public interface ProviderDAO {
 
 	public abstract Provider create(Provider provider);
+	
+	public abstract Provider recoveryProvider(String email, String IdProvider);
 
     public abstract Provider update(String email, String senha);
 

@@ -11,24 +11,26 @@ import project.ton.model.User;
 
 public class UserController {
 	
-	public UserDTO validarUsuario(String pCellPhone, String pSenha){
-		if (pCellPhone == null)
+	public UserDTO validarUsuario(String pEmail, String pCpf, String pRG){
+		if (pEmail == null)
             return new UserDTO(false, "Email invalido");
-        if (pSenha == null || pSenha.isEmpty())
-            return new UserDTO(false, "Senha invalida");
+        if (pCpf == null || pCpf.isEmpty())
+            return new UserDTO(false, "Cpf invalido");
+        if (pRG == null || pRG.isEmpty())
+        	return new UserDTO(false, "RG  invalido");
 
         // Criando os objetos DAO
         UserDAO tUserDAO = DaoFactory.getUserDAO();
 
         // Lendo o User
-        User tUser = tUserDAO.recoveryUser(pCellPhone);
+        User tUser = tUserDAO.recoveryUser(pEmail,pCpf,pRG);
 
         // Verificando se houve erro de recuperação
         if (tUser == null)
             return new UserDTO(false, "Usuario não existe no cadastro");
 
         // Validar a senha
-        if (tUser.getPasswordUser().equals(pSenha))
+        if (tUser.getCpfUser().equals(pCpf))
         {
             // Retornando o indicativo de sucesso com o objeto recuperado
             return new UserDTO(true, "Usuario identificado com sucesso", tUser);
@@ -53,7 +55,7 @@ public class UserController {
 	        MailController mail = new MailController();
 
 	        // Verificando se o User jÃ¡ estÃ¡ cadastrado
-	        User tUser = tDaoUser.recoveryUser(pUser.getEmailUser());
+	        User tUser = tDaoUser.recoveryUser(pUser.getEmailUser(),pUser.getCpfUser(),pUser.getRgUser());
 	        if (tUser != null)
 	            return new UserDTO(false, "ja existe usuario cadastrado com esse email");
 	        // Inserindo o User
@@ -74,7 +76,7 @@ public class UserController {
 	        
 	    }
 	 
-	  public UserDTO recuperar(String pCpf)
+	  public UserDTO recuperar(String pEmail, String pCpf, String pRg)
 	    {
 	        // Validando os parÃ¢metros de entrada
 	        if (pCpf == null)
@@ -84,7 +86,7 @@ public class UserController {
 	        UserDAO tDaoUser = DaoFactory.getUserDAO();
 
 	        // Lendo o usuario
-	        User tUser = tDaoUser.recoveryUser(pCpf);
+	        User tUser = tDaoUser.recoveryUser(pEmail,pCpf,pRg);
 
 	        // Verificando se houve erro de recuperaÃ§Ã£o
 	        if (tUser == null)
@@ -124,7 +126,7 @@ public class UserController {
 	        // Criando os objetos DAO
 	        UserDAO tDaoUser = DaoFactory.getUserDAO();
 
-	        User tUser = tDaoUser.recoveryUser(pCpf);
+	        User tUser = tDaoUser.recoveryUserCpf(pCpf);
 	        if (tUser == null)
 	            return new UserDTO(false, "User nao existe no cadastro");
 	        // Removendo o User

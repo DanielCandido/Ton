@@ -1,5 +1,7 @@
 package project.ton.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,14 +22,33 @@ public class Provider {
 	private String subcategory;
 	@Column(name="SITUACAO")
 	private String situacao;
+	@Column(name="EMAIL_PROVIDER")
+	private String emailProvider;
+	@Column(name="PHONE_PROVIDER")
+	private String phoneProvider;
+	@Column(name="CELLPHONE_PROVIDER")
+	private String cellphoneProvider;
+	@Column(name="ADRESS_PROVIDER")
+	private String adressProvider;
+	@Column(name="PASSWORD_PROVIDER")
+	private String passwordProvider;
+	@Column(name="REGISTER_DATE")
+	private Date registerDate;
 	
-	public Provider(String pId, String pName, int pCategory, String pSubcategory, String pSituacao){
+	public Provider(String pId, String pName, int pCategory, String pSubcategory, String pSituacao, String pEmail, String pPhone,
+				String cellphone, String adress, String password, Date register){
 		super();
 		setIdProvider(pId);
 		setNameProvider(pName);
 		setCategory(pCategory);
 		setSubcategory(pSubcategory);
 		setSituacao(pSituacao);
+		setEmailProvider(pEmail);
+		setPhoneProvider(pPhone);
+		setCellphoneProvider(cellphone);
+		setAdressProvider(adress);
+		setPasswordProvider(password);
+		setRegisterDate(register);
 	}
 
 	public Provider() {
@@ -72,6 +93,54 @@ public class Provider {
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
+	}
+
+	public String getEmailProvider() {
+		return emailProvider;
+	}
+
+	public void setEmailProvider(String emailProvider) {
+		this.emailProvider = emailProvider;
+	}
+
+	public String getPhoneProvider() {
+		return phoneProvider;
+	}
+
+	public void setPhoneProvider(String phoneProvider) {
+		this.phoneProvider = phoneProvider;
+	}
+
+	public String getCellphoneProvider() {
+		return cellphoneProvider;
+	}
+
+	public void setCellphoneProvider(String cellphoneProvider) {
+		this.cellphoneProvider = cellphoneProvider;
+	}
+
+	public String getAdressProvider() {
+		return adressProvider;
+	}
+
+	public void setAdressProvider(String adressProvider) {
+		this.adressProvider = adressProvider;
+	}
+
+	public String getPasswordProvider() {
+		return passwordProvider;
+	}
+
+	public void setPasswordProvider(String passwordProvider) {
+		this.passwordProvider = passwordProvider;
+	}
+
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
 	}
 
 	

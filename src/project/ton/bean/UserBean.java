@@ -19,6 +19,10 @@ import project.ton.util.SessionUtils;
 @ViewScoped
 public class UserBean implements Serializable {
 
+	
+	public UserBean(){
+		
+	}
 	/**
 	 * 
 	 */
@@ -79,7 +83,7 @@ public class UserBean implements Serializable {
 
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("EMAIL_USER", emailLogin);
-			return "home-page";
+			return "servicos-contrato";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email ou senha incorreto", null));

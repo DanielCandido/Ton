@@ -12,42 +12,51 @@
 		<title>Ordem de servico</title>
 		<link rel="stylesheet" href="css/font-awesome.min.css" />
 </h:head> 
-<body> 
-<div>
-		<div style="border-color: black; width: 100px; height:100px;">
-			<p:graphicImage value="/Views/Images/vaai.png" style="heigth:50px; width:150px;"/>		
-		</div>
-		<div style="text-align: right">
-			<a class="entrar-perfil" href="perfil-usuario.xhtml">
-			<i class="fa fa-user-circle-o" aria-hidden="true" ></i>Perfil</a>
-		</div>
+<h:body> 
+	<f:metadata>
+		<f:viewAction action="#{orderServiceBean.inicializar()}"/>
+	</f:metadata>		
+	
+	
+	<div id="conteudo">
+		<h1>Nova Ordem de Serviço</h1>
+	
+		<h:form id="frm">
+		<p:messages autoUpdate="true"/>
+		
+		<p:panelGrid columns="2" >
+			<p:outputLabel value="Prestador" for="prestador"/><br/>
+			<h:panelGroup>
+			<p:inputText id="prestador" value="#{orderServiceBean.idProvider}"
+				readonly="{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}"/>
+				<p:commandButton icon="ui-icon-search" title="Pesquisa"
+						action="#{providerBean.abrirDialogo}"
+						process="@this" update="@none">
+						<p:ajax event="dialogReturn" listener="#{orderServiceBean.clienteSelecionado}"
+							process="@this" update="prestador" />
+						<p:resetInput target="prestador" />
+					</p:commandButton>
+			</h:panelGroup>
+		<br/>
 		<br/>
 		
-		<f:metadata>
-			<f:viewAction action="#{orderServiceBean.inicializar()}"/>
-		</f:metadata>
-		<h1>Nova Ordem de Serviço</h1>
-		<h:form>
-			<p:message autoUpdate="true"/>
-			
-			<p:panelGrid columns="2">
-				<p:outputLabel value="Prestador" for="provider"/>
-				<h:panelGroup>
-					<p:inputText id="cliente" value="#{providerBean.nome}"
-						readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}"/>
-						
-						<p:commandButton icon="ui-icon-search" title="Pesquisa"
-							action="#{providerBean.abrirDialogo()}"
-								process="@this" update="@none">
-							<p:ajax event="dialogReturn" listener="#{orderServiceBean.clienteSelecionado}"
-								process="@this" update="provider"/>
-								<p:resetInput target="provider"></p:resetInput>
-						</p:commandButton>
-				</h:panelGroup>
-			</p:panelGrid>
-			
+		<p:outputLabel value="Data Pedido"/><br/>
+		<p:calendar id="data" value="#{orderServiceBean.orderService.dateOrder}"/>
+		<br/>
+		<br/>
+		<p:outputLabel value="Cep" /><br/>
+		<p:inputMask mask="99.999-999" value="#{orderServiceBean.orderService.cepOrder}"/>
+		<br/>
+		<br/>
+		<p:outputLabel value="Contratante"/><br/>
+		<p:inputText id="idUser" value="#{orderServiceBean.orderService.userId}"/>
+		
+		<br/>
+		<br/>
+		<p:commandButton value="Cadastrar" action="#{orderServiceBean.salvar()}" process="@form" update="@form"/>
+		</p:panelGrid>
 		</h:form>
 </div>
 
-</body> 
+</h:body> 
 </html>

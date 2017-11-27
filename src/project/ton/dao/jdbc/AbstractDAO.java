@@ -47,5 +47,10 @@ public abstract class AbstractDAO<T> {
 			return null;
 		}
 
+		public Provider recoveryProvider(String email, String idProvider) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 
 }

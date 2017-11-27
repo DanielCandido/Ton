@@ -78,7 +78,7 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 	}
 
 	@Override
-	public User recoveryUser(String emailUser) {
+	public User recoveryUser(String emailUser, String cpf, String rg) {
 
 		User tObject = null;
 
@@ -87,12 +87,14 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 			myConnection = acessoDAO.openConnection();
 
 			// Criando comando sql e jdbc
-			String sqlRecovery = "SELECT " + sCampos1 + " FROM " + sTabela + " WHERE EMAIL_USER = ?";
+			String sqlRecovery = "SELECT " + sCampos1 + " FROM " + sTabela + " WHERE EMAIL_USER = ? and CPF_USER = ? and RG_USER = ?";
 			System.out.println("" + sqlRecovery);
 			PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlRecovery);
 
 			// Colocando o parametro recebido no JDBC
 			tComandoJDBC.setString(1, emailUser);
+			tComandoJDBC.setString(2, cpf);
+			tComandoJDBC.setString(3, rg);
 
 			// Executando o comando e salvando o ResulSet para processar
 			ResultSet tResultSet = tComandoJDBC.executeQuery();
@@ -113,6 +115,44 @@ public class UserDaoJdbc extends AbstractDAO<User> implements UserDAO {
 		return tObject;
 
 	}
+	
+	@Override
+	public User recoveryUserCpf(String cpf) {
+
+		User tObject = null;
+
+		try {
+			AcessDAO acessoDAO = new AcessDAO();
+			myConnection = acessoDAO.openConnection();
+
+			// Criando comando sql e jdbc
+			String sqlRecovery = "SELECT " + sCampos1 + " FROM " + sTabela + " WHERE EMAIL_USER = ?";
+			System.out.println("" + sqlRecovery);
+			PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlRecovery);
+
+			// Colocando o parametro recebido no JDBC
+			tComandoJDBC.setString(2, cpf);
+
+			// Executando o comando e salvando o ResulSet para processar
+			ResultSet tResultSet = tComandoJDBC.executeQuery();
+
+			// Verificando se um registro foi lido
+			if (tResultSet.next()) {
+				// Salvando o objeto para retornar
+				tObject = carregarObjeto(tResultSet);
+			}
+
+			// liberando os recursos jdbc
+			tResultSet.close();
+			tComandoJDBC.close();
+
+		} catch (SQLException | ClassNotFoundException tExcept) {
+			ExceptionUtil.mostrarErro(tExcept, "Erro no metodo de recuperação do objeto");
+		}
+		return tObject;
+
+	}
+
 
 	// Metodo para atualização de usuario
 	/*public User updateUser(User puser) {

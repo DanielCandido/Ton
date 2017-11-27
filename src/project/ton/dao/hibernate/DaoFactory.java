@@ -6,6 +6,7 @@ import project.ton.dao.i.OrderServiceDAO;
 import project.ton.dao.i.ProviderDAO;
 import project.ton.dao.i.UserDAO;
 import project.ton.dao.jdbc.CategoryDAOJdbc;
+import project.ton.dao.jdbc.OrderServiceJdbc;
 import project.ton.dao.jdbc.ProviderDAOJdbc;
 import project.ton.dao.jdbc.UserDaoJdbc;
 
@@ -26,7 +27,7 @@ public class DaoFactory {
 
 	public static OrderServiceDAO getOrderDAO()
 	{
-		return new OrdeServiceDAOHibernate();
+		return new OrderServiceJdbc();
 	}
 
 	public static ContractDAO getContractDAO()

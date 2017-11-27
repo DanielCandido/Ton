@@ -12,15 +12,11 @@
 		
 </h:head> 
 <h:body style="font:fantasy; ; font-size: 10px;"> 
-	
-	<h:form style="width: 600px; text-align: center; ">
-	
-	<div style="margin-top: 5px; margin-bottom: 20px;">
-		<p:inputText id="nome" size="40" value="#{providerBean.nome}" placeholder="Nome do prestador"/>
-		<p:spacer width="10px"/>
-		<p:commandButton icon="ui-icon-search" action="#{providerBean.pesquisarNome()}" update="@form"/>
 		
-	</div>
+		<div style="border-color: black; width: 10px; height:40px; text-align: center;">
+			<p:graphicImage value="/Views/Images/vaai.png" style="heigth:120px; width:80px;"/>		
+		</div>
+	<h:form style="width: 600px; text-align: center; ">
 
 	<p:dataTable value="#{providerBean.list}" var="provider" emptyMessage="Nenhum Registro Encontrado"
 	rows="8" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
@@ -35,8 +31,8 @@
 		</p:column>	
 		<p:column>
 			<f:facet name="header">Visualizar</f:facet>
-			<p:commandButton icon="ui-icon-search" action="#{providerBean.ProviderSelect(provider)}" process="@this">
-				<f:setPropertyActionListener value="#{provider}" target="#{providerBean.providerSelecionado}"></f:setPropertyActionListener>
+			<p:commandButton icon="ui-icon-search" action="#{providerBean.Selecionar(provider)}" onclick="servicos-contrato" process="@this">
+
 			</p:commandButton>
 		</p:column>
 	</p:dataTable>

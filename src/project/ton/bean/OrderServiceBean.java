@@ -4,23 +4,22 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.primefaces.event.SelectEvent;
 
 import project.ton.controller.OrderServiceController;
 import project.ton.dto.OrderServiceDTO;
 import project.ton.model.OrderService;
+import project.ton.model.Provider;
 
 @ManagedBean(name="orderServiceBean")
 @ViewScoped
 public class OrderServiceBean {
 	
-	@Inject 
+	
 	private OrderServiceController orderServiceController;
 	
-	
-	@Inject 
 	private FacesMessage messages;
 	
 	private OrderService orderService;
@@ -31,18 +30,22 @@ public class OrderServiceBean {
 	
 	
 	public void clienteSelecionado(SelectEvent event){
-		OrderService orderservice = (OrderService) event.getObject();
-		orderService.setProvider(orderservice.getUserId());
+		Provider provider = (Provider) event.getObject();
+		orderService.setProvider(provider);
 	}
 	
-	public String Salvar(){
+	public String salvar(){
 		
 		FacesContext contexto = FacesContext.getCurrentInstance();
 		
 		orderServiceController = new OrderServiceController();
 		OrderServiceDTO oDto = new OrderServiceDTO();
-		System.out.println("Ordem registrada: " +orderService);
-		orderServiceController.cadastrar(orderService);
+		System.out.println("Ordem registrada: " + orderService);
+		orderService.setSituation("Em analise");
+		
+		OrderService order = new OrderService();
+		order = orderService;
+		orderServiceController.cadastrar(order);
 		
 		if(!contexto.getMessageList().isEmpty()){
 			return "visualiza-order";
@@ -85,9 +88,15 @@ public class OrderServiceBean {
 		this.orderService = orderService;
 	}
 	
-	public String getNomeCliente() {
+	@NotBlank
+	public String getIdProvider() {
 		return orderService.getProvider() == null 
-				? null : orderService.getProvider();
+				? null : orderService.getProvider().getNameProvider();
+	}
+	
+	public void setIdProvider(String idProvider){
+		
 	}
 
+	
 }

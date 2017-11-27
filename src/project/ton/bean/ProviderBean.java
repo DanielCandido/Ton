@@ -5,15 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 
+import project.ton.controller.ProviderController;
+import project.ton.controller.UserController;
 import project.ton.dao.jdbc.ProviderDAOJdbc;
+import project.ton.dto.ProviderDTO;
 import project.ton.model.OrderService;
 import project.ton.model.Provider;
+import project.ton.model.User;
 
 @Named("providerBean")
 @ManagedBean
@@ -22,23 +27,50 @@ public class ProviderBean implements Serializable {
 	private static final long serialVersionUID = 1846656949930562956L;
 
 	private Provider providerSelecionado;
-	private ProviderDAOJdbc provider;
-	private String nome;
+	private ProviderDAOJdbc providerDAO;
+	private String nome = "";
 	private List<Provider> searchList;
 	private List<Provider> list = null;
 	private OrderService orderService;
-	/**
-	 * Metodo para cadastrar
-	 *
-	 * @return
-	 */
-	public String registerProvider() {
-		return null;
-
+	
+	
+	public ProviderBean(){
+		
 	}
 	
-	public void pesquisarNome(){
-		searchList = provider.searchByName(nome);
+	public String registerProvider() {
+		
+		FacesContext contexto = FacesContext.getCurrentInstance();
+		
+		ProviderController providerC = new ProviderController();
+		ProviderDTO providerD = new ProviderDTO();
+		
+		System.out.println("Prestador |Cadastrado: " + providerSelecionado);
+		
+		providerD = providerC.cadastrar(providerSelecionado);
+		
+		
+		if (!contexto.getMessageList().isEmpty()) {
+			return "login-user";
+		}
+		
+		if (providerD.isOk()) {
+			providerSelecionado = providerD.getObjeto();
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, providerD.getMensagem(), null));
+			providerC = new ProviderController();
+			
+		} else {
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, providerD.getMensagem(), null));
+		}
+		
+		providerSelecionado = new Provider();
+		return "login-user";
+	}
+	
+	public void pesquisarNome(String nomeUser){
+		Provider provider = new Provider();
+		System.out.println(this.getNome());
+		searchList = providerDAO.searchByName(provider.getNameProvider());
 	}
 		
 	public void abrirDialogo() {
@@ -48,7 +80,7 @@ public class ProviderBean implements Serializable {
 		  optionsDialog.put("contentHeight", 470);        
 
 		  RequestContext.getCurrentInstance()
-		      .openDialog("procedimentosPesquisaCompleta", optionsDialog, null);
+		      .openDialog("home-page", optionsDialog, null);
 		}
 	
 	public void Selecionar(Provider provider)
@@ -56,12 +88,12 @@ public class ProviderBean implements Serializable {
 		RequestContext.getCurrentInstance().closeDialog(provider);
 	}
 	
-	public void ProviderSelect(SelectEvent event)
+	/*public void ProviderSelect(SelectEvent event)
 	{
 		Provider provider = (Provider) event.getObject();
 		orderService.setProvider(provider.getIdProvider());
 		
-	}
+	}*/
 
     public List<Provider> getList()
     {

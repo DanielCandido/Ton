@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui"> 
+
+<h:head>
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<title>Cadastro Usuario</title>
+	
+	
+</h:head> 
+<h:body styleClass="Bimage">
+
+	<div>
+		<div style="border-color: black; width: 10px; height:40px; text-align: center;">
+			<p:graphicImage value="/Views/Images/vaai.png" style="heigth:120px; width:80px;"/>		
+		</div>
+		<div style="text-align: right">
+		<a class="entrar-perfil" href="login-usuario.xhtml">
+			<i class="fa fa-user-circle-o" aria-hidden="true" ></i>Entrar</a>
+		</div>
+		<br/>
+		<h:form>
+		<p:messages id="messages" showDetail="false" autoUpdate="true"
+			closable="true" />
+		</h:form>
+		</div>	
+	<div style="text-align: center">
+		
+		
+		<h:form >
+			<br/>
+			<div >
+			<h:graphicImage value="/Views/Images/cadastre-se.png" />
+			</div>
+			
+			<div style="display: inline-block;">
+				<p:outputLabel value="Nome" /><br/>
+				<p:inputText id="nomePrestador" value="#{providerBean.providerSelecionado.nameProvider}" required="false" validatorMessage="Campo 'NOME' é obrigatório">
+					<f:validateRequired validatorMessage="*Campo nome é obrigatorio" />
+				</p:inputText><br/><br/>	
+				
+				<p:outputLabel value="CPF"/><br/>
+				<p:inputMask mask="999.999.999-99" id="cpfPrestador" value="#{providerBean.providerSelecionado.idProvider}" required="false" validatorMessage="Campo 'CPF' obrigatorio">
+					<f:validateRequired validatorMessage="*Campo CPF é obrigatorio" />
+				</p:inputMask><br/><br/>
+				
+				<p:outputLabel value="Email"/><br/>
+				<p:inputText id="emailPrestador" value="#{providerBean.providerSelecionado.emailProvider}" required="false" validatorMessage="Campo 'EMAIL' é obrigatório">
+					<f:validateRequired validatorMessage="*Campo email é obrigatorio" />
+				</p:inputText><br/><br/>
+				
+			</div>
+			
+			<div style="display: inline-block; vertical-align: top">
+				
+				<p:outputLabel value="Celular" /><br/>
+				<p:inputMask mask="(99) 9999-9999" id="celularPessoa" value="#{providerBean.providerSelecionado.cellphoneProvider}"  required="false" validatorMessage="Campo 'CELULAR' é obrigatório">
+					<f:validateRequired validatorMessage="*Campo celular é obrigatorio" />
+				</p:inputMask><br/><br/>
+				
+				<p:outputLabel value="Telefone"/><br/>
+				<p:inputMask mask="(99) 9999-9999" id="telefonePessoa" value="#{providerBean.providerSelecionado.phoneProvider}" requiredMessage="Campo telefone obrigatorio"/><br/><br/>
+				
+				<p:outputLabel value="Endereço" /><br/>
+				<p:inputText id="enderecoPessoa" value="#{providerBean.providerSelecionado.adressProvider}" required="false" validatorMessage="Campo 'CEP' é obrigatório" /><br/><br/>
+			
+				
+				<p:outputLabel value="Senha"/><br/>
+				<p:password id="passwordPessoa" value="#{providerBean.providerSelecionado.passwordProvider}" required="false" validatorMessage="Campo 'SENHA' é obrigatório"/><br/><br/>
+				
+			<p:commandButton id="cadastrar" value="Casdastrar" action="#{providerBean.registerProvider()}"/>
+			</div>
+			</h:form>
+				
+			</div>
+			
+</h:body> 
+</html>

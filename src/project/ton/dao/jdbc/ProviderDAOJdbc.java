@@ -12,12 +12,14 @@ import javax.persistence.EntityManager;
 
 import project.ton.dao.i.ProviderDAO;
 import project.ton.model.Provider;
+import project.ton.model.User;
 import project.ton.util.ExceptionUtil;
 
 public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDAO{
 	
 	private static String tabela = "SERVICE_PROVIDER";
-	private static String campos = "ID_SERVICE_PROVIDER,NAME_PROVIDER,CATEGORY,DESCRICAO,SITUACAO";
+	private static String campos = "ID_SERVICE_PROVIDER,NAME_PROVIDER,CATEGORY,DESCRICAO,SITUACAO,EMAIL_PROVIDER,"
+			+ "PHONE_PROVIDER, CELLPHONE_PROVIDER, PASSWORD_PROVIDER";
 	
 	public ProviderDAOJdbc(){
 		
@@ -47,6 +49,11 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 			pstm.setInt(i++, provider.getCategory());
 			pstm.setString(i++, provider.getSubcategory());
 			pstm.setString(i++, provider.getSituacao());
+			pstm.setString(i++, provider.getEmailProvider());
+			pstm.setString(i++, provider.getPhoneProvider());
+			pstm.setString(i++, provider.getCellphoneProvider());
+			pstm.setString(i++, provider.getPasswordProvider());
+			pstm.setDate(i++, new java.sql.Date(provider.getRegisterDate().getTime()));
 			
 			pstm.executeQuery();
 			
@@ -59,6 +66,8 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 		}
 		return tObject;
 	}
+	
+	
 	
 	@Override
 	public List<Provider> search(){
@@ -166,5 +175,65 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 		tProvider.setNameProvider(tResultSet.getString("NAME_PROVIDER"));
 		tProvider.setSubcategory(tResultSet.getString("SUBCATEGORY"));
 		return null;
+	}
+
+
+
+	public Provider recoveryProvider(String email, String idProvider) {
+	
+		Provider tObject = null;
+		
+		try {
+			
+			AcessDAO acess = new AcessDAO();
+			myConnection = acess.openConnection();
+			
+			String sqlRecovery = "SELECT " + campos + " FROM " + tabela + " WHERE EMAIL_PROVIDER = ? and ID_SERVICE_PROVIDER = ?";
+			System.out.println("" + sqlRecovery);
+			PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlRecovery);
+
+			// Colocando o parametro recebido no JDBC
+			tComandoJDBC.setString(1, email);
+			tComandoJDBC.setString(2, idProvider);
+
+			// Executando o comando e salvando o ResulSet para processar
+			ResultSet tResultSet = tComandoJDBC.executeQuery();
+
+			// Verificando se um registro foi lido
+			if (tResultSet.next()) {
+				// Salvando o objeto para retornar
+				tObject = carregarObjeto(tResultSet);
+			}
+
+			// liberando os recursos jdbc
+			tResultSet.close();
+			tComandoJDBC.close();
+
+		} catch (SQLException | ClassNotFoundException tExcept) {
+			ExceptionUtil.mostrarErro(tExcept, "Erro no metodo de recupera��o do objeto");
+		}
+		return tObject;
+	}
+	
+	public Provider carregarObjeto(ResultSet tResultSet) throws SQLException {
+		// Criando um novo objeto para armazenar as informações lidas
+		provider = new Provider();
+
+		// Recuperando as informações do ResultSet e colocando no objeto
+		// criado
+
+		provider.setIdProvider(tResultSet.getString("ID_SERVICE_PROVIDER"));
+		provider.setNameProvider(tResultSet.getString("NAME_PROVIDER"));
+		provider.setCategory(tResultSet.getInt("CATEGORY"));
+		provider.setSubcategory(tResultSet.getString("DESCRICAO"));
+		provider.setSituacao(tResultSet.getString("SITUACAO"));
+		provider.setEmailProvider(tResultSet.getString("EMAIL_PROVIDER"));
+		provider.setPhoneProvider(tResultSet.getString("PHONE_PROVIDER"));
+		provider.setCellphoneProvider(tResultSet.getString("CELLPHONE_PROVIDER"));
+		provider.setPasswordProvider(tResultSet.getString("PASSWORD_PROVIDER"));
+		provider.setRegisterDate(tResultSet.getDate("REGISTER_DATE"));
+		
+
+		return provider;
 	}
 }
