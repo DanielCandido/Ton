@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="css/font-awesome.min.css" />
 	<title>Login Usuario</title>
 </h:head> 
-<h:body> 
+<body style="background-image: url('https://st2.depositphotos.com/2013817/5303/v/950/depositphotos_53038205-stock-illustration-seamless-background-with-tools.jpg');"> 
 	<div style="border-color: black; width: 10px; height:40px; text-align: center;">
 			<p:graphicImage value="/Views/Images/vaai.png" style="heigth:120px; width:80px;"/>		
 		</div>
@@ -18,11 +18,9 @@
 		<h:form>
 		<p:messages id="messages" showDetail="false" autoUpdate="true"
 			closable="true" />
-
-		<p:panelGrid >
 			<br />
 			<br />
-			<p:outputLabel value="Email"/>
+			<p:outputLabel value="Email" style="color:red"/>
 			
 			<br/><br/>
 			<p:inputText  id="emailusuario" required="false"
@@ -32,7 +30,7 @@
 				</p:inputText>
 			<br />
 			<br />
-			<p:outputLabel value="Senha"/>
+			<p:outputLabel value="Senha" style="color:red"/>
 			
 			<br/><br/>
 			<p:password id="senhausuario" required="false"
@@ -41,10 +39,9 @@
 				<f:validateRequired validatorMessage="Senha invalida"/>
 				</p:password>
 			<br />
-		</p:panelGrid>
 
-			<p:commandLink id="ircadastro" action="cadastro-usuario"
-				value="Cadastre-se" />
+			<p:link id="ircadastro" href="cadastro-usuario.jsf"
+				value="Cadastre-se" style="color:violet" />
 			<br />
 			<br />
 			<p:commandButton id="fazerlogin" action="#{userBean.fazerLogin()}"
@@ -52,5 +49,5 @@
 		
 		</h:form>
 	</div>
-</h:body> 
+</body> 
 </html>

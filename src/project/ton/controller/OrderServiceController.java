@@ -1,15 +1,15 @@
 package project.ton.controller;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import project.ton.dao.hibernate.DaoFactory;
 import project.ton.dao.i.OrderServiceDAO;
-import project.ton.dao.i.UserDAO;
 import project.ton.dto.OrderServiceDTO;
-import project.ton.dto.UserDTO;
 import project.ton.model.OrderService;
-import project.ton.model.User;
 
 public class OrderServiceController {
 	public  OrderServiceDTO validarPedido(int idOrder, String pSenha){
@@ -40,14 +40,11 @@ public class OrderServiceController {
 
 	        // Criando os objetos DAO
 	        OrderServiceDAO tDaoOrder = DaoFactory.getOrderDAO();
-
-	        // Verificando se o User jÃ¡ estÃ¡ cadastrado
-	        OrderService tOrder = tDaoOrder.createOrderService(pOrder);
-	        if (tOrder != null)
-	            return new OrderServiceDTO(false, "ja existe um pedido cadastrado ");
-
 	        // Inserindo o User
-	        tOrder = tDaoOrder.createOrderService(pOrder);
+	        pOrder.setDateOrder(new Date());
+	        pOrder.setSituation("Em analise");
+	        System.out.println("Na controller" + pOrder);
+	        OrderService tOrder = tDaoOrder.createOrderService(pOrder);
 
 	        // Verificando se houve erro de criaÃ§Ã£o
 	        if (tOrder == null)

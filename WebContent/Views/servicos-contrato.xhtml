@@ -12,23 +12,23 @@
 		<title>Ordem de servico</title>
 		<link rel="stylesheet" href="css/font-awesome.min.css" />
 </h:head> 
-<h:body> 
+<body style="background-image: url('https://st2.depositphotos.com/2013817/5303/v/950/depositphotos_53038205-stock-illustration-seamless-background-with-tools.jpg');"> 
 	<f:metadata>
-		<f:viewAction action="#{orderServiceBean.inicializar()}"/>
+		<f:viewAction action="#{orderServiceBean.inicializar}"/>
 	</f:metadata>		
 	
 	
-	<div id="conteudo">
+	<div id="conteudo" style="background-color: silver; width: 300px; height: 200px; text-align: center">
 		<h1>Nova Ordem de Serviço</h1>
 	
 		<h:form id="frm">
 		<p:messages autoUpdate="true"/>
 		
-		<p:panelGrid columns="2" >
+		<p:panelGrid columns="2">
 			<p:outputLabel value="Prestador" for="prestador"/><br/>
 			<h:panelGroup>
-			<p:inputText id="prestador" value="#{orderServiceBean.idProvider}"
-				readonly="{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}"/>
+			<p:inputText id="prestador" value="#{orderServiceBean.orderService.provider}"
+				readonly="{facesContext.currentPhaseId.idProvider  eq 'RENDER_RESPONSE'}"/>
 				<p:commandButton icon="ui-icon-search" title="Pesquisa"
 						action="#{providerBean.abrirDialogo}"
 						process="@this" update="@none">
@@ -39,24 +39,20 @@
 			</h:panelGroup>
 		<br/>
 		<br/>
-		
-		<p:outputLabel value="Data Pedido"/><br/>
-		<p:calendar id="data" value="#{orderServiceBean.orderService.dateOrder}"/>
-		<br/>
-		<br/>
-		<p:outputLabel value="Cep" /><br/>
-		<p:inputMask mask="99.999-999" value="#{orderServiceBean.orderService.cepOrder}"/>
+		<p:outputLabel value="Endereço" /><br/>
+		<p:inputText  value="#{orderServiceBean.orderService.cepOrder}"/>
 		<br/>
 		<br/>
 		<p:outputLabel value="Contratante"/><br/>
-		<p:inputText id="idUser" value="#{orderServiceBean.orderService.userId}"/>
+		<p:inputText id="idUser" value="#{orderServiceBean.orderService.userId}" />
 		
 		<br/>
 		<br/>
-		<p:commandButton value="Cadastrar" action="#{orderServiceBean.salvar()}" process="@form" update="@form"/>
+		<p:commandButton value="Cadastrar" action="#{orderServiceBean.salvar}" process="@form" update="@form"/><br/>
+		<p:button value="Voltar" href="menu-principal.jsf"/>
 		</p:panelGrid>
 		</h:form>
 </div>
 
-</h:body> 
+</body> 
 </html>

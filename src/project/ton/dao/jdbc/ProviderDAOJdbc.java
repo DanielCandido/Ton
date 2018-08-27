@@ -1,4 +1,4 @@
-package project.ton.dao.jdbc;
+ package project.ton.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 	
 	private static String tabela = "SERVICE_PROVIDER";
 	private static String campos = "ID_SERVICE_PROVIDER,NAME_PROVIDER,CATEGORY,DESCRICAO,SITUACAO,EMAIL_PROVIDER,"
-			+ "PHONE_PROVIDER, CELLPHONE_PROVIDER, PASSWORD_PROVIDER";
+			+ "PHONE_PROVIDER, CELLPHONE_PROVIDER, PASSWORD_PROVIDER, REGISTER_DATE";
 	
 	public ProviderDAOJdbc(){
 		
@@ -39,7 +39,7 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 			AcessDAO acess = new AcessDAO();
 			
 			myConnection = acess.openConnection();
-			String sqlRegister = "INSERT INTO"+ tabela + " (" + campos + ") VALUES (?,?,?,?,?)";
+			String sqlRegister = "INSERT INTO "+ tabela + " (" + campos + ") VALUES (?,?,?,?,?,?,?,?,?,?)";
 			System.out.println(sqlRegister);
 			PreparedStatement pstm = myConnection.prepareStatement(sqlRegister);
 			
@@ -90,7 +90,7 @@ public class ProviderDAOJdbc extends AbstractDAO<Provider> implements ProviderDA
 			 {
 	            // Salvando o objeto retornado para adicionar na lista
 	            Provider tObjeto = new Provider();
-	            
+	            tObjeto.setIdProvider(rs.getString("ID_SERVICE_PROVIDER"));
 	            tObjeto.setNameProvider(rs.getString("NAME_PROVIDER"));
 	            tObjeto.setSubcategory(rs.getString("DESCRICAO"));
 

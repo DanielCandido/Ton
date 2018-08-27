@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="SERVICE_PROVIDER", schema="DanielCandido")
-public class Provider {
+public class Provider implements Comparable<Provider>{
 
 	@Id
 	@Column(name="ID_SERVICE_PROVIDER")
@@ -143,6 +143,42 @@ public class Provider {
 		this.registerDate = registerDate;
 	}
 
+	@Override
+	public int compareTo(Provider o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	 // Métodos da classe Object
+    @Override
+    public String toString()
+    {
+        StringBuilder tBuilder = new StringBuilder();
+        tBuilder.append("Service_provider[");
+        tBuilder.append(getIdProvider());
+        tBuilder.append(", ");
+        tBuilder.append(getNameProvider());
+        tBuilder.append(", ");
+        tBuilder.append(getEmailProvider());
+        tBuilder.append(", ");
+        tBuilder.append(getCategory());
+        tBuilder.append(", ");
+        tBuilder.append(getSubcategory());
+        tBuilder.append(", ");
+        tBuilder.append(getAdressProvider());
+        tBuilder.append(", ");
+        tBuilder.append(getCellphoneProvider());
+        tBuilder.append(", ");
+        tBuilder.append(getPhoneProvider());
+        tBuilder.append(", ");
+        tBuilder.append(getPasswordProvider());
+        tBuilder.append(", ");
+        tBuilder.append(getRegisterDate());
+        tBuilder.append(", ");
+        tBuilder.append(getSituacao());
+        tBuilder.append("]");
+        return tBuilder.toString();
+    }
 	
 
 }

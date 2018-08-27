@@ -7,36 +7,34 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
 
 import project.ton.controller.ProviderController;
-import project.ton.controller.UserController;
 import project.ton.dao.jdbc.ProviderDAOJdbc;
 import project.ton.dto.ProviderDTO;
 import project.ton.model.OrderService;
 import project.ton.model.Provider;
-import project.ton.model.User;
 
-@Named("providerBean")
-@ManagedBean
+@ManagedBean(name="providerBean")
+@ViewScoped
 public class ProviderBean implements Serializable {
-
+	
 	private static final long serialVersionUID = 1846656949930562956L;
 
-	private Provider providerSelecionado;
+	private Provider providerSelecionado = new Provider();
 	private ProviderDAOJdbc providerDAO;
 	private String nome = "";
 	private List<Provider> searchList;
 	private List<Provider> list = null;
-	private OrderService orderService;
+	private OrderService orderService = new OrderService();
 	
-	
-	public ProviderBean(){
+public ProviderBean(){
 		
 	}
+
 	
 	public String registerProvider() {
 		
@@ -51,7 +49,7 @@ public class ProviderBean implements Serializable {
 		
 		
 		if (!contexto.getMessageList().isEmpty()) {
-			return "login-user";
+			return "cadastro-provider";
 		}
 		
 		if (providerD.isOk()) {
@@ -141,5 +139,20 @@ public class ProviderBean implements Serializable {
 		this.orderService = orderService;
 	}
 
-    
+
+	public ProviderDAOJdbc getProviderDAO() {
+		return providerDAO;
+	}
+
+
+	public void setProviderDAO(ProviderDAOJdbc providerDAO) {
+		this.providerDAO = providerDAO;
+	}
+
+
+	public void setList(List<Provider> list) {
+		this.list = list;
+	}
+
+	
 }

@@ -1,10 +1,11 @@
 package project.ton.test;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import project.ton.controller.UserController;
-import project.ton.dao.jdbc.UserDaoJdbc;
-import project.ton.model.User;
+import project.ton.controller.JasperController;
+import project.ton.model.OrderService;
 
 public class UserDAOTest {
 
@@ -25,23 +26,23 @@ public class UserDAOTest {
 		List<Provider> listSeach = yDAO.searchByName("JOAO");
 		System.out.println(listSeach);*/
 		
-		
+		try{
+			List<OrderService> ordens = new ArrayList<OrderService>();
 		//Testa Jasper
-		User user = new User();
-		user.setCpfUser("10228281218");
-		user.setFirstNameUser("Maria");
-		user.setLastNameUser("Mendonça");
-		user.setEmailUser("mariamendoca@gmail.com");
-		user.setRgUser("114115111");
-		user.setPhoneUser("(41)3837-3837");
-		user.setCellPhoneUser("(41)8789-8789");
-		user.setCepUser("88.555-000");
-		user.setAdressUser("rua teste");
-		user.setPasswordUser("123456");
-		user.setRegisterDate(new Date());
+		OrderService order = new OrderService();
+		order.setIdOrder(28);
+		order.setProvider("10000000001");
+		order.setCepOrder("Rua xv");
+		order.setDateOrder(new Date());
+		order.setSituation("Em analise");
+		order.setUserId("10000000002");
 		
-		UserDaoJdbc userC = new UserDaoJdbc();
-		userC.createUser(user);
+		ordens.add(order);
+		JasperController jasper = new JasperController();
+		jasper.imprimir(ordens);
+		} catch(Exception e){
+			System.out.println(e.getMessage());
+		}
 	}	
 }
 

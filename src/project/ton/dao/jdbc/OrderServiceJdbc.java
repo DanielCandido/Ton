@@ -14,7 +14,7 @@ import project.ton.util.ExceptionUtil;
 public class OrderServiceJdbc extends AbstractDAO<OrderService> implements OrderServiceDAO {
 
 	private static String sTabela = "ORDER_SERVICE";
-	private static String sCampos1 = "ID_ORDER, SERVICE_PROVIDER_ID, DATE_ORDER, CEP_ORDER, STATUS_ORDER";
+	private static String sCampos1 = "ID_ORDER, SERVICE_PROVIDER_ID, DATE_ORDER, CEP_ORDER, STATUS_ORDER, USER_ID_USER";
 	private static String sCampos2 = sCampos1.replaceAll(",", " = ?,") + " = ?";
 	private static String sCampos3 = sCampos2.replaceAll("[A-Z_]+ =", "");
 	private static String sPrimaryKey = "ID_ORDER";
@@ -31,17 +31,16 @@ public class OrderServiceJdbc extends AbstractDAO<OrderService> implements Order
 			
 			//Criando comando sql
 			String sqlRegister = "INSERT INTO " + sTabela + " (" + sCampos1 + ") VALUES ("
-					+ sCampos3.replaceFirst("\\?", "IDORDER_SEQ.NEXTVAL") + ")";
+					+ sCampos3.replaceFirst("\\?", "IDORDERSERVICE_SEQ.NEXTVAL") + ")";
 			System.out.println(sqlRegister);
 			PreparedStatement tComandoJDBC = myConnection.prepareStatement(sqlRegister, new String[] { "ID_ORDER" });
 			
 			//Colocando os parametros
 			int i= 1;
-			tComandoJDBC.setInt(i++, orderService.getIdOrder());
-			tComandoJDBC.setObject(i++, orderService.getProvider());
+			tComandoJDBC.setString(i++, orderService.getProvider());
 			tComandoJDBC.setDate(i++, new java.sql.Date(orderService.getDateOrder().getTime()));
 			tComandoJDBC.setString(i++, orderService.getCepOrder());
-			tComandoJDBC.setString(i++, String.valueOf(orderService.getSituation()));
+			tComandoJDBC.setString(i++, orderService.getSituation());
 			tComandoJDBC.setString(i++, orderService.getUserId());
 			
 			tComandoJDBC.executeQuery();
@@ -177,27 +176,72 @@ public class OrderServiceJdbc extends AbstractDAO<OrderService> implements Order
         try
         {
             // Criando o comando SQL e o comando JDBC
+        	AcessDAO acess = new AcessDAO();
+			myConnection = acess.openConnection();
             String tComandoSQL = "SELECT " + sCampos1 +
                                  " FROM " + sTabela;
             PreparedStatement tComandoJDBC = myConnection.prepareStatement(tComandoSQL);
 
-            executeSelect(tLista, tComandoJDBC);
-        }
-        catch (SQLException tExcept)
-        {
-            ExceptionUtil.mostrarErro(tExcept, "Erro no mÃ©todo de recuperaÃ§Ã£o da lista de objetos");
-        }
-
-        // Retornando a lista de objetos
-        return tLista;
+            
+            ResultSet rs = tComandoJDBC.executeQuery();
+            while (rs.next())
+			 {
+	            // Salvando o objeto retornado para adicionar na lista
+	            OrderService tObjeto = new OrderService();
+	            tObjeto.setIdOrder(rs.getInt("ID_ORDER"));
+	            tObjeto.setProvider(rs.getString("SERVICE_PROVIDER_ID"));
+	            tObjeto.setDateOrder(rs.getDate("DATE_ORDER"));
+	            tObjeto.setCepOrder(rs.getString("CEP_ORDER"));
+	            tObjeto.setSituation(rs.getString("STATUS_ORDER"));
+	            tObjeto.setUserId(rs.getString("USER_ID_USER"));
+	            // Adicionando o objeto na lista
+	            tLista.add(tObjeto);
+	        }
+			
+		}
+		catch (SQLException | ClassNotFoundException e)
+		{
+			ExceptionUtil.mostrarErro(e, "Erro na recuperação da lista");
+		}
+		return tLista;
 	}
 
 	@Override
 	public List<OrderService> searchByNome(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderService> tlist = new ArrayList<>();
+		
+try {
+			
+			AcessDAO acess = new AcessDAO();
+			myConnection = acess.openConnection();
+			
+			String sqlSearch = "SELECT * FROM ORDER_SERVICE WHERE ID_ORDER = " + id;
+			
+			PreparedStatement pstm = myConnection.prepareStatement(sqlSearch);
+			
+			ResultSet rs = pstm.executeQuery();
+			while (rs.next())
+			 {
+	            // Salvando o objeto retornado para adicionar na lista
+	            OrderService tObjeto = new OrderService();
+	            tObjeto.setIdOrder(rs.getInt("ID_ORDER"));
+	            tObjeto.setProvider(rs.getString(" SERVICE_PROVIDER_ID"));
+	            tObjeto.setDateOrder(rs.getDate("DATE_ORDER"));
+	            tObjeto.setCepOrder(rs.getString("CEP_ORDER"));
+	            tObjeto.setSituation(rs.getString("SITUATION"));
+	            tObjeto.setUserId(rs.getString("USER_ID_USER"));
+	            // Adicionando o objeto na lista
+	            tlist.add(tObjeto);
+	        }
+			
+		}
+		catch (SQLException | ClassNotFoundException e)
+		{
+			ExceptionUtil.mostrarErro(e, "Erro na recuperação da lista");
+		}
+		return tlist;
+		
 	}
-
 	@Override
 	protected OrderService loadingObject(ResultSet tResultSet) throws SQLException {
 		OrderService tOrder = new OrderService();

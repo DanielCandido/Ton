@@ -69,7 +69,7 @@ public class CategoryDAOJdbc extends AbstractDAO<Category> implements CategoryDA
 	            //tObjeto.setNameCategory(rs.getString("NAME_CATEGORY"));
 	            // Adicionando o objeto na lista
 	            
-	            list.add(rs.getString("NAME_CATEGORY"));
+				list.add(rs.getString("ID_CATEGORY"));
 	        }
 			
 		}
@@ -84,6 +84,7 @@ public class CategoryDAOJdbc extends AbstractDAO<Category> implements CategoryDA
 	@Override
 	protected Category loadingObject(ResultSet tResultSet) throws SQLException {
 		Category tCategory = new Category();
+		tCategory.setIdCategory(tResultSet.getInt("ID_CATEGORY"));
 		tCategory.setNameCategory(tResultSet.getString("NAME_CATEGORY"));
 		return  null;
 	}

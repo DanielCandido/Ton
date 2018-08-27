@@ -7,15 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.ManyToAny;
 @Entity()
 @Table(name="ORDER_SERVICE", schema="DanielCandido")
-public class OrderService {
+public class OrderService implements Comparable<OrderService>{
 
     @Id()
     @Column(name="ID_ORDER")
@@ -23,9 +19,7 @@ public class OrderService {
     @SequenceGenerator(name = "GERADOR_IDORDER", sequenceName = "IDORDERSERVICE_SEQ", allocationSize = 1)
     private int idOrder;
     @Column(name="SERVICE_PROVIDER_ID")
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Provider provider;
+    private String provider;
     @Column(name="DATE_ORDER")
 	private Date dateOrder;
 	@Column(name="CEP_ORDER")
@@ -35,7 +29,7 @@ public class OrderService {
 	@Column(name="USER_ID_USER")
 	private String userId;
 
-	public OrderService(int pIdOrder, Provider pProvider,Date pDateOrder,String cepOrder,String pOrderSituation, String pUserID)
+	public OrderService(int pIdOrder, String pProvider,Date pDateOrder,String cepOrder,String pOrderSituation, String pUserID)
 	{
 	    super();
 	    setIdOrder(pIdOrder);
@@ -60,14 +54,13 @@ public class OrderService {
 		this.idOrder = idOrder;
 	}
 
-	
 
-	public Provider getProvider() {
+	public String getProvider() {
 		return provider;
 	}
 
 
-	public void setProvider(Provider provider) {
+	public void setProvider(String provider) {
 		this.provider = provider;
 	}
 
@@ -104,5 +97,33 @@ public class OrderService {
 	public void setSituation(String situation) {
 		this.situation = situation;
 	}
+
+
+	@Override
+	public int compareTo(OrderService o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	 // Métodos da classe Object
+    @Override
+    public String toString()
+    {
+        StringBuilder tBuilder = new StringBuilder();
+        tBuilder.append("Order_service[");
+        tBuilder.append(getIdOrder());
+        tBuilder.append(", ");
+        tBuilder.append(getProvider());
+        tBuilder.append(", ");
+        tBuilder.append(getCepOrder());
+        tBuilder.append(", ");
+        tBuilder.append(getSituation());
+        tBuilder.append(", ");
+        tBuilder.append(getDateOrder());
+        tBuilder.append(", ");
+        tBuilder.append(getUserId());
+        tBuilder.append("]");
+        return tBuilder.toString();
+    }
 
 }

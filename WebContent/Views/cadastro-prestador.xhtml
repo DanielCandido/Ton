@@ -13,7 +13,7 @@
 	
 	
 </h:head> 
-<h:body styleClass="Bimage">
+<body>
 
 	<div>
 		<div style="border-color: black; width: 10px; height:40px; text-align: center;">
@@ -53,6 +53,8 @@
 				<p:inputText id="emailPrestador" value="#{providerBean.providerSelecionado.emailProvider}" required="false" validatorMessage="Campo 'EMAIL' é obrigatório">
 					<f:validateRequired validatorMessage="*Campo email é obrigatorio" />
 				</p:inputText><br/><br/>
+				<p:outputLabel value="Descrição"/><br/>
+				<p:inputText id="descricao" value="#{providerBean.providerSelecionado.subcategory}"/>
 				
 			</div>
 			
@@ -69,15 +71,20 @@
 				<p:outputLabel value="Endereço" /><br/>
 				<p:inputText id="enderecoPessoa" value="#{providerBean.providerSelecionado.adressProvider}" required="false" validatorMessage="Campo 'CEP' é obrigatório" /><br/><br/>
 			
-				
+				<p:outputLabel value="Categoria"/><br/>
+				<p:selectOneMenu value="#{providerBean.providerSelecionado.subcategory}" style="width: 100px;">
+					<f:selectItem itemLabel="Selecione"/>
+					<f:selectItems value="#{categoryBean.listCategory}" />
+				</p:selectOneMenu>
+				<br/>
 				<p:outputLabel value="Senha"/><br/>
 				<p:password id="passwordPessoa" value="#{providerBean.providerSelecionado.passwordProvider}" required="false" validatorMessage="Campo 'SENHA' é obrigatório"/><br/><br/>
 				
-			<p:commandButton id="cadastrar" value="Casdastrar" action="#{providerBean.registerProvider()}"/>
+			<p:commandButton id="cadastrar" value="Casdastrar" action="#{providerBean.registerProvider}"/>
 			</div>
 			</h:form>
 				
 			</div>
 			
-</h:body> 
+</body> 
 </html>

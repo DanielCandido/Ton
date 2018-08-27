@@ -21,24 +21,6 @@ import project.ton.model.User;
 @Path("/Usuario")
 public class UserWS {
 	
-
-    @GET
-    @Path("/RecuperarObjeto")
-    public User login(@Context HttpServletRequest request) {
-
-        try {
-            HttpSession session = request.getSession();
-            User user = new User();
-            String cpfUser = session.getId(); 
-            user.setCpfUser(cpfUser);
-
-        } catch(NullPointerException ex) {
-
-        }
-        return null;
-
-    }
-
 	@GET
 	@Path("/Pesquisar")
 	@Produces(MediaType.APPLICATION_JSON)

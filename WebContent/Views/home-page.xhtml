@@ -21,6 +21,10 @@
 	<p:dataTable value="#{providerBean.list}" var="provider" emptyMessage="Nenhum Registro Encontrado"
 	rows="8" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
 	<f:facet name="header">Listagem de serviços</f:facet>
+		<!-- <p:column>
+			<f:facet name="header">Cpf</f:facet>
+			<h:outputText value="#{provider.idProvider}" />
+		</p:column> -->
 		<p:column>
 			<f:facet name="header">Nome Serviço</f:facet>
 			<h:outputText value="#{provider.nameProvider}" />

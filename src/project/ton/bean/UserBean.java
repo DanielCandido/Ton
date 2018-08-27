@@ -44,6 +44,7 @@ public class UserBean implements Serializable {
 	 * 
 	 * @return
 	 */
+
 	public String saveUser() {	
 		
 		FacesContext contexto = FacesContext.getCurrentInstance();
@@ -83,57 +84,15 @@ public class UserBean implements Serializable {
 
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("EMAIL_USER", emailLogin);
-			return "servicos-contrato";
+			return "menu-principal";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email ou senha incorreto", null));
-			return "login_user";
+			return "login-user";
 		}
 	}
 
 	
-	/* public void imprimir()
-	    {
-	        try
-	        {
-	            // Obtendo o relatório compilado
-	            JasperReport jasperReport = JasperFactory.getRelacaoAlunosPesquisados();
-
-	            // DataSource para a lista de alunos pesquisada
-	            JRDataSource tDataSource = new JRBeanCollectionDataSource(listaAlunos);
-
-	            // Preenchendo o relatório
-	            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, tDataSource);
-
-	            // Gerando o relatório em um array de bytes
-	            byte[] tRelatorio = JasperExportManager.exportReportToPdf(jasperPrint);
-
-	            // Obtendo o contexto externo da aplicação
-	            FacesContext tCtxJsf = FacesContext.getCurrentInstance();
-	            ExternalContext tCtxExterno = tCtxJsf.getExternalContext();
-
-	            // Retirando algum header previamente colocado pelo JSF
-	            tCtxExterno.responseReset();
-
-	            // Obtendo o buffer de saida do contexto externo
-	            OutputStream tSaida = tCtxExterno.getResponseOutputStream();
-
-	            // Configurando os headers para o browse
-	            tCtxExterno.setResponseContentType("application/pdf");
-	            tCtxExterno.setResponseContentLength(tRelatorio.length);
-
-	            // Gravando o relatório no stream de saida
-	            tSaida.write(tRelatorio);
-
-	            // Indicando para o JSF não renderizar a página
-	            tCtxJsf.responseComplete();
-	        }
-	        catch (IOException | JRException tExcept)
-	        {
-	           throw new RuntimeException(tExcept);
-
-	        }
-	    }*/
 	
 	
 	public void info() {

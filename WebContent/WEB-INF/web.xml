@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  
+  
   <context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
@@ -9,7 +11,15 @@
 		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
 		<param-value>0</param-value>
 	</context-param>
+	<!-- <filter>
+		<filter-name>AuthorizationFilter</filter-name>
+		<filter-class>project.ton.util.AuthorizationFilter</filter-class>
+	</filter>
 	
+	<filter-mapping>
+		<filter-name>AuthorizationFilter</filter-name>
+		<url-pattern>/Views/Security/*</url-pattern>
+	</filter-mapping> -->
 	
 	<resource-env-ref>
 		<resource-env-ref-name>BeanManager</resource-env-ref-name>
@@ -21,15 +31,7 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <filter>
-    <filter-name>FiltroHibernate</filter-name>
-    <filter-class>project.ton.filters.FiltroHibernate</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>FiltroHibernate</filter-name>
-    <url-pattern>/WS/*</url-pattern>
-  </filter-mapping>
-  <servlet>
+   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
@@ -38,4 +40,21 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>report</servlet-name>
+    <servlet-class>project.ton.servlet.ServletReport</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>report</servlet-name>
+    <url-pattern>/s/report</url-pattern>
+</servlet-mapping> 
+  <filter>
+    <filter-name>FiltroHibernate</filter-name>
+    <filter-class>project.ton.filters.FiltroHibernate</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>FiltroHibernate</filter-name>
+    <url-pattern>/WS/*</url-pattern>
+  </filter-mapping>
+ 
 </web-app>

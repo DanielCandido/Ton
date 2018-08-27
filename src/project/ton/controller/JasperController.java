@@ -19,17 +19,18 @@ public class JasperController {
 	
 	public JasperController(){
 		this.path = this.getClass().getClassLoader().getResource("").getPath();
-		this.pathToReportPackage = this.path + "";
+		this.pathToReportPackage = "C:/Users/Daniel Candido/Desktop/";
 		System.out.println(path);
 	}
 	
+	
 	public void imprimir(List<OrderService> order) throws Exception	
 	{
-		JasperReport report = JasperCompileManager.compileReport(this.getPathToReportPackage() + "OrderService.jrxml");
+		JasperReport report = JasperCompileManager.compileReport(this.getPathToReportPackage() + "orderservice.jrxml");
 		
 		JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(order));
  
-		JasperExportManager.exportReportToPdfFile(print, "c:/Relatorio_de_Ordens.pdf");		
+		JasperExportManager.exportReportToPdfFile(print, "C:/Users/Daniel Candido/Desktop/Relatorio_de_Ordens.pdf");		
 	}
 
 	public String getPath() {
